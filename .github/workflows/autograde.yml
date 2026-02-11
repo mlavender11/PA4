@@ -1,0 +1,17 @@
+name: Autograde (Hidden)
+
+on:
+  push:
+    branches: ["PA1","PA2","PA3","PA4","Lab4","FinalProject"]
+  pull_request:
+    branches: ["PA1","PA2","PA3","PA4","Lab4","FinalProject"]
+
+jobs:
+  grade:
+    uses: BU-EC327-Spring2026/hw-autograder-hello/.github/workflows/grade.yml@main
+    with:
+      hw: ${{ github.ref_name }}
+      student_repo: ${{ github.repository }}
+      student_ref: ${{ github.sha }}
+    secrets:
+      autograder_token: ${{ secrets.AUTOGRADER_REPO_TOKEN }}
