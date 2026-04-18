@@ -6,106 +6,135 @@ Model::Model()
     time = 0;
 
     Mage *Mage1 = new Mage("Serena", 1, 'M', 1, Point2D(5, 1));
-    object_ptrs[0] = Mage1;
-    mage_ptrs[0] = Mage1;
+    object_ptrs.push_back(Mage1);
+    mage_ptrs.push_back(Mage1);
 
     Mage *Mage2 = new Mage("Rumi", 2, 'M', 2, Point2D(10, 1));
-    object_ptrs[1] = Mage2;
-    mage_ptrs[1] = Mage2;
+    object_ptrs.push_back(Mage2);
+    mage_ptrs.push_back(Mage2);
 
     ManaSpire *ManaSpire1 = new ManaSpire(1, 1, 100, Point2D(1, 20));
-    object_ptrs[2] = ManaSpire1;
-    spire_ptrs[0] = ManaSpire1;
+    object_ptrs.push_back(ManaSpire1);
+    spire_ptrs.push_back(ManaSpire1);
 
     ManaSpire *ManaSpire2 = new ManaSpire(2, 2, 200, Point2D(10, 20));
-    object_ptrs[3] = ManaSpire2;
-    spire_ptrs[1] = ManaSpire2;
+    object_ptrs.push_back(ManaSpire2);
+    spire_ptrs.push_back(ManaSpire2);
 
     DemonHideout *DemonHideout1 = new DemonHideout(10, 1, 2, 3, 1, Point2D(0, 0));
-    object_ptrs[4] = DemonHideout1;
-    hideout_ptrs[0] = DemonHideout1;
+    object_ptrs.push_back(DemonHideout1);
+    hideout_ptrs.push_back(DemonHideout1);
 
     DemonHideout *DemonHideout2 = new DemonHideout(20, 5, 7.5, 4, 2, Point2D(5, 5));
-    object_ptrs[5] = DemonHideout2;
-    hideout_ptrs[1] = DemonHideout2;
+    object_ptrs.push_back(DemonHideout2);
+    hideout_ptrs.push_back(DemonHideout2);
 
-    RoamingDemon* roamer1 = new RoamingDemon("Roamer 1", 5, 2, false, 1, Point2D(10, 12));
-    object_ptrs[6] = roamer1;
-    roaming_prts[0] = roamer1;
+    RoamingDemon *roamer1 = new RoamingDemon("Roamer 1", 5, 2, false, 1, Point2D(10, 12));
+    object_ptrs.push_back(roamer1);
+    roaming_ptrs.push_back(roamer1);
 
-    RoamingDemon* roamer2 = new RoamingDemon("Roamer 2", 5, 2, false, 2, Point2D(15, 5));
-    object_ptrs[7] = roamer2;
-    roaming_prts[1] = roamer2;
+    RoamingDemon *roamer2 = new RoamingDemon("Roamer 2", 5, 2, false, 2, Point2D(15, 5));
+    object_ptrs.push_back(roamer2);
+    roaming_ptrs.push_back(roamer2);
 
-    num_objects = 8;
-    num_mages = 2;
-    num_spires = 2;
-    num_hideouts = 2;
-    num_roamers = 2;
+    for (GameObject* obj : object_ptrs) 
+    {
+        active_ptrs.push_back(obj);
+    }
 
     cout << "Model default constructed " << endl;
 }
 
 Model::~Model()
 {
-    for (int i = 0; i < num_objects; i++)
+    for (GameObject *obj : object_ptrs)
     {
-        delete object_ptrs[i];
+        delete obj;
     }
+    object_ptrs.clear();
 
     cout << "Model destructed" << endl;
 }
 
 Mage *Model::GetMagePtr(int id)
 {
-    for (int i = 0; i < num_mages; i++)
+    for (Mage *mage : mage_ptrs)
     {
-        if (mage_ptrs[i]->GetId() == id)
+        if (mage->GetId() == id)
         {
-            return mage_ptrs[i];
+            return mage;
         }
     }
-    return 0;
+    return nullptr;
 }
 
 ManaSpire *Model::GetManaSpirePtr(int id)
 {
-    for (int i = 0; i < num_spires; i++)
+    for (ManaSpire *spire : spire_ptrs)
     {
-        if (spire_ptrs[i]->GetId() == id)
+        if (spire->GetId() == id)
         {
-            return spire_ptrs[i];
+            return spire;
         }
     }
-    return 0;
+    return nullptr;
 }
 
 DemonHideout *Model::GetDemonHideoutPtr(int id)
 {
-    for (int i = 0; i < num_hideouts; i++)
+    for (DemonHideout *hideout : hideout_ptrs)
     {
-        if (hideout_ptrs[i]->GetId() == id)
+        if (hideout->GetId() == id)
         {
-            return hideout_ptrs[i];
+            return hideout;
         }
     }
-    return 0;
+    return nullptr;
+}
+
+RoamingDemon *Model::GetRoamingDemonPtr(int id)
+{
+    for (RoamingDemon *roamer : roaming_ptrs)
+    {
+        if (roamer->GetId() == id)
+        {
+            return roamer;
+        }
+    }
+    return nullptr;
 }
 
 bool Model::Update()
 {
     time++;
     bool output = false;
-    for (int i = 0; i < num_objects; i++)
+    for (GameObject* obj : active_ptrs)
     {
-        if (object_ptrs[i]->Update())
+        if (obj->Update())
             output = true;
     }
 
-    bool defeated = true;
-    for (int i = 0; i < num_hideouts; i++)
+    auto it = active_ptrs.begin();
+    while (it != active_ptrs.end())
     {
-        if (hideout_ptrs[i]->GetState() == NOT_DEFEATED)
+        GameObject* obj = *it;
+        bool dead = (obj->GetState() == KNOCKED_OUT || obj->GetState() == DEFEATED || obj->GetState() == NO_CRYSTALS_AVAILABLE || obj->GetState() == DEAD);
+        
+        if (dead)
+        {
+            cout << "Dead object removed: " << obj->GetId() << obj->GetDisplayCode() << endl;
+            it = active_ptrs.erase(it);
+        }
+        else
+        {
+            ++it;
+        }
+    }
+
+    bool defeated = true;
+    for (DemonHideout *hideout : hideout_ptrs)
+    {
+        if (hideout->GetState() == NOT_DEFEATED)
         {
             defeated = false;
             break;
@@ -118,9 +147,9 @@ bool Model::Update()
     }
 
     bool knocked = true;
-    for (int i = 0; i < num_mages; i++)
+    for (Mage *mage : mage_ptrs)
     {
-        if (mage_ptrs[i]->GetState() != KNOCKED_OUT)
+        if (mage->GetState() != KNOCKED_OUT)
         {
             knocked = false;
             break;
@@ -132,18 +161,17 @@ bool Model::Update()
         exit(0);
     }
 
+  
+
     return output;
 }
-
-// make virtual functions???
 
 void Model::Display(View &view)
 {
     view.Clear();
-    for (int i = 0; i < num_objects; i++)
+    for (GameObject* obj : object_ptrs)
     {
-        if (object_ptrs[i]->ShouldBeVisible())
-            view.Plot(object_ptrs[i]);
+        view.Plot(obj);
     }
     view.Draw();
 }
@@ -151,8 +179,8 @@ void Model::Display(View &view)
 void Model::ShowStatus()
 {
     cout << "Time: " << time << endl;
-    for (int i = 0; i < num_objects; i++)
+    for (GameObject* obj : object_ptrs)
     {
-        object_ptrs[i]->ShowStatus();
+        obj->ShowStatus();
     }
 }

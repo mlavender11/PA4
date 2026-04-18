@@ -17,6 +17,7 @@ public:
     Point2D GetLocation() const;
     int GetId() const;
     char GetState() const;
+    char GetDisplayCode() const;
 
     virtual void ShowStatus() const;
     virtual bool Update() = 0;

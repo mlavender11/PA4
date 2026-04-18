@@ -49,3 +49,8 @@ void GameObject::DrawSelf(char* ptr)
     *ptr = display_code;
     *(ptr+1) = '0' + id_num;
 }
+
+char GameObject::GetDisplayCode() const
+{
+    return display_code;
+}
