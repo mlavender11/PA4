@@ -53,6 +53,7 @@ bool RoamingDemon::Update()
         return false;
         break;
     case IN_HUNT:
+        return false; // chkec this
         break;
     }
 }
