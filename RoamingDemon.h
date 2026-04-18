@@ -6,9 +6,9 @@ using namespace std;
 
 enum RoamingDemonStates
 {
-    IN_ENVIRONMENT = 1,
-    DEAD = 2,
-    IN_HUNT = 3,
+    IN_ENVIRONMENT = 0,
+    DEAD = 1,
+    IN_HUNT = 2,
 };
 
 class RoamingDemon : public GameObject
