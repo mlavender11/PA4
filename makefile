@@ -2,8 +2,8 @@ CXX = g++
 CXXFLAGS = -Wall
 
 # Final executable
-pa3: main.o Model.o GameCommand.o View.o Mage.o ManaSpire.o DemonHideout.o Building.o GameObject.o Point2D.o Vector2D.o
-	$(CXX) $(CXXFLAGS) -o pa3 main.o Model.o GameCommand.o View.o Mage.o ManaSpire.o DemonHideout.o Building.o GameObject.o Point2D.o Vector2D.o
+pa3: main.o Model.o GameCommand.o View.o Mage.o ManaSpire.o DemonHideout.o Building.o GameObject.o Point2D.o Vector2D.o RoamingDemon.o
+	$(CXX) $(CXXFLAGS) -o pa3 main.o Model.o GameCommand.o View.o Mage.o ManaSpire.o DemonHideout.o Building.o GameObject.o Point2D.o Vector2D.o RoamingDemon.o
 
 main.o: main.cpp
 	$(CXX) $(CXXFLAGS) -c main.cpp
@@ -37,6 +37,9 @@ Point2D.o: Point2D.cpp
 
 Vector2D.o: Vector2D.cpp
 	$(CXX) $(CXXFLAGS) -c Vector2D.cpp
+
+RoamingDemon.o: RoamingDemon.cpp
+	$(CXX) $(CXXFLAGS) -c RoamingDemon.cpp
 
 # Checkpoint targets for testing
 Checkpoint3: Test3.o Mage.o ManaSpire.o DemonHideout.o Building.o GameObject.o Point2D.o Vector2D.o
