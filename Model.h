@@ -16,6 +16,7 @@
 #include "ManaSpire.h"
 #include "DemonHideout.h"
 #include "RoamingDemon.h"
+#include "Invalid_Input.h"
 #include <list>
 
 class Model
@@ -44,6 +45,8 @@ public:
     bool Update();
     void Display(View &view);
     void ShowStatus();
+
+    void NewCommand(char type, int id, Point2D loc);
 };
 
 #endif
