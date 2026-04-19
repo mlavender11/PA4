@@ -63,3 +63,8 @@ void View::Draw() {
         cout << setw(2) << (int)(origin.x + x * scale) << "  "; // skip odd columns
     cout << endl;
 }
+
+int View::GetMaxSize() const
+{
+    return view_maxsize;
+}
