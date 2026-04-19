@@ -22,6 +22,7 @@ public:
     virtual void ShowStatus() const;
     virtual bool Update() = 0;
     virtual bool ShouldBeVisible() const = 0;
+    virtual bool isDead() const = 0;
 
     void DrawSelf(char* ptr);
 };

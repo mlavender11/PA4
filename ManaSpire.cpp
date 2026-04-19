@@ -91,3 +91,8 @@ void ManaSpire::ShowStatus() const
 ManaSpire::~ManaSpire(){
     cout << "ManaSpire destructed" << endl;
 }
+
+bool ManaSpire::isDead() const
+{
+    return state == NO_CRYSTALS_AVAILABLE;
+}

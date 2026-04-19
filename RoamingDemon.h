@@ -6,8 +6,8 @@ using namespace std;
 
 enum RoamingDemonStates
 {
-    IN_ENVIRONMENT = 0,
-    DEAD = 1,
+    DEAD = 0,
+    IN_ENVIRONMENT = 1,
     IN_HUNT = 2,
 };
 
@@ -32,5 +32,7 @@ public:
     void ShowStatus() const override;
     bool Update() override;
     bool IsAlive();
+
+    bool isDead() const override;
 };
 #endif

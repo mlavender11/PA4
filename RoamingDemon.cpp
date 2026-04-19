@@ -84,3 +84,8 @@ bool RoamingDemon::ShouldBeVisible() const
 {
     return state != DEAD;
 }
+
+bool RoamingDemon::isDead() const
+{
+    return DEAD;
+}

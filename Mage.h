@@ -6,9 +6,9 @@
 #include "ManaSpire.h"
 
 enum MageStates {
-    STOPPED = 0,
+    KNOCKED_OUT = 0,
     MOVING = 1,
-    KNOCKED_OUT = 2,
+    STOPPED = 2,
     AT_SPIRE = 3,
     IN_HIDEOUT = 4,
     MOVING_TO_SPIRE = 5,
@@ -39,6 +39,8 @@ public:
     bool Update() override;
 
     string GetName();
+
+    bool isDead() const override;
 
 
 protected:
