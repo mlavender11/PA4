@@ -4,8 +4,8 @@
 
 enum ManaSpireStates
 {
-    CRYSTALS_AVAILABLE = 0,
-    NO_CRYSTALS_AVAILABLE = 1
+    NO_CRYSTALS_AVAILABLE = 0,
+    CRYSTALS_AVAILABLE = 1
 };
 
 class ManaSpire : public Building
@@ -27,6 +27,8 @@ public:
     unsigned int DistributeCrystals(unsigned int crystals_needed);
     bool Update() override;
     void ShowStatus() const override;
+
+    bool isDead() const override;
 };
 
 #endif

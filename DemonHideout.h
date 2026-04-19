@@ -4,8 +4,8 @@
 
 enum DemonHideoutStates
 {
-    NOT_DEFEATED = 0,
-    DEFEATED = 1
+    DEFEATED = 0,
+    NOT_DEFEATED = 1
 };
 
 class DemonHideout : public Building
@@ -31,5 +31,6 @@ public:
     bool Update() override;
     bool passed() const;
     void ShowStatus() const override;
+    bool isDead() const override;
 };
 #endif

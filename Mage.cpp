@@ -373,3 +373,8 @@ string Mage::GetName()
 {
     return name;
 }
+
+bool Mage::isDead() const
+{
+    return state == KNOCKED_OUT;
+}

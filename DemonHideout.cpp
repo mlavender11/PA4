@@ -111,3 +111,8 @@ void DemonHideout::ShowStatus() const
 DemonHideout::~DemonHideout() {
     cout << "DemonHideout destructed" << endl;
 }
+
+bool DemonHideout::isDead() const
+{
+    return state == DEFEATED;
+}

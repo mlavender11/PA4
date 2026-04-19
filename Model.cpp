@@ -118,9 +118,8 @@ bool Model::Update()
     while (it != active_ptrs.end())
     {
         GameObject* obj = *it;
-        bool dead = (obj->GetState() == KNOCKED_OUT || obj->GetState() == DEFEATED || obj->GetState() == NO_CRYSTALS_AVAILABLE || obj->GetState() == DEAD);
         
-        if (dead)
+        if (obj->isDead())
         {
             cout << "Dead object removed: " << obj->GetId() << obj->GetDisplayCode() << endl;
             it = active_ptrs.erase(it);
