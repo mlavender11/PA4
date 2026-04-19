@@ -37,7 +37,7 @@ Model::Model()
     object_ptrs.push_back(roamer2);
     roaming_ptrs.push_back(roamer2);
 
-    for (GameObject* obj : object_ptrs) 
+    for (GameObject *obj : object_ptrs)
     {
         active_ptrs.push_back(obj);
     }
@@ -108,7 +108,7 @@ bool Model::Update()
 {
     time++;
     bool output = false;
-    for (GameObject* obj : active_ptrs)
+    for (GameObject *obj : active_ptrs)
     {
         if (obj->Update())
             output = true;
@@ -117,8 +117,8 @@ bool Model::Update()
     auto it = active_ptrs.begin();
     while (it != active_ptrs.end())
     {
-        GameObject* obj = *it;
-        
+        GameObject *obj = *it;
+
         if (obj->isDead())
         {
             cout << "Dead object removed: " << obj->GetId() << obj->GetDisplayCode() << endl;
@@ -160,15 +160,13 @@ bool Model::Update()
         exit(0);
     }
 
-  
-
     return output;
 }
 
 void Model::Display(View &view)
 {
     view.Clear();
-    for (GameObject* obj : object_ptrs)
+    for (GameObject *obj : object_ptrs)
     {
         view.Plot(obj);
     }
@@ -178,8 +176,68 @@ void Model::Display(View &view)
 void Model::ShowStatus()
 {
     cout << "Time: " << time << endl;
-    for (GameObject* obj : object_ptrs)
+    for (GameObject *obj : object_ptrs)
     {
         obj->ShowStatus();
+    }
+}
+
+void Model::NewCommand(char type, int id, Point2D loc)
+{
+    switch (type)
+    {
+    case 's':
+    {
+        if (GetManaSpirePtr(id))
+            throw Invalid_Input("ManaSpire " + to_string(id) + " already exists.");
+
+        ManaSpire *new_spire = new ManaSpire(id, 2, 200, loc);
+        object_ptrs.push_back(new_spire);
+        active_ptrs.push_back(new_spire);
+        spire_ptrs.push_back(new_spire);
+    }
+
+    case 'd':
+    {
+        if (GetDemonHideoutPtr(id))
+            throw Invalid_Input("DemonHideout " + to_string(id) + " already exists.");
+
+        DemonHideout *new_hideout = new DemonHideout(10, 1, 2, 3, id, loc);
+        object_ptrs.push_back(new_hideout);
+        active_ptrs.push_back(new_hideout);
+        hideout_ptrs.push_back(new_hideout);
+        break;
+    }
+
+    case 'g':
+    {
+        if (GetMagePtr(id))
+            throw Invalid_Input("Mage " + to_string(id) + " already exists.");
+
+        string name = "New Mage" + to_string(id);
+        Mage *new_mage = new Mage(name, id, 'M', 1, loc);
+
+        object_ptrs.push_back(new_mage);
+        active_ptrs.push_back(new_mage);
+        mage_ptrs.push_back(new_mage);
+        break;
+    }
+
+    case 'o':
+    {
+        if (GetRoamingDemonPtr(id))
+            throw Invalid_Input("RoamingDemon " + to_string(id) + " already exists.");
+
+        string name = "Placeholder"; //??
+        RoamingDemon *new_roamer = new RoamingDemon(name, 5, 2, false, id, loc);
+
+        object_ptrs.push_back(new_roamer);
+        active_ptrs.push_back(new_roamer);
+        roaming_ptrs.push_back(new_roamer);
+        break;
+    }
+
+    default:
+        break;
     }
 }

@@ -79,7 +79,7 @@ void getInput(Model &model, View &view)
     cout << endl
          << "*********" << endl;
     char code;
-    int in1, in2, in3;
+    int in1, in2, in3, in4;
 
     cout << "Enter a command: ";
     cin >> code;
@@ -149,6 +149,16 @@ void getInput(Model &model, View &view)
             cout << "Quitting" << endl;
             exit(0);
             break;
+
+        case 'n':
+            cin >> in1 >> in2 >> in3 >> in4;
+
+            if (in1 != 's' && in1 != 'd' && in1 != 'g' && in1 != 'o')
+                throw Invalid_Input(to_string(in1) + " is not a valid type");
+            if (in3 < 0 || in3 > view.GetMaxSize() || in4 < 0 || in4 > view.GetMaxSize())
+                throw Invalid_Input("Coordinates (" + to_string(in3) + ", " + to_string(in4) + ") are out of bounds");
+
+            model.NewCommand(in1, in2, Point2D(in3, in4));
 
         default:
             throw Invalid_Input("Unkown command entered");
