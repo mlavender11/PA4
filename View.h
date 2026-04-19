@@ -22,5 +22,7 @@ public:
     void Clear();
     void Plot(GameObject* ptr);
     void Draw();
+
+    int GetMaxSize() const;
 };
 #endif
