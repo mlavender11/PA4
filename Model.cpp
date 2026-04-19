@@ -191,10 +191,23 @@ void Model::NewCommand(char type, int id, Point2D loc)
         if (GetManaSpirePtr(id))
             throw Invalid_Input("ManaSpire " + to_string(id) + " already exists.");
 
-        ManaSpire *new_spire = new ManaSpire(id, 2, 200, loc);
+        double crystal_cost;
+        int crystal_cap;
+        cout << "Enter Crystal Cost and Crystal Capacity: ";
+        cin >> crystal_cost >> crystal_cap;
+        while (cin.fail() || crystal_cost <= 0 || crystal_cap <= 0) {
+            cin.clear();
+            cin.ignore(100, '\n');
+            cout << "Error. Enter a valid input for Crystal Cost and Crystal Capacity: ";
+            cin >> crystal_cost >> crystal_cap;
+        }
+
+        ManaSpire *new_spire = new ManaSpire(id, crystal_cost, crystal_cap, loc);
+
         object_ptrs.push_back(new_spire);
         active_ptrs.push_back(new_spire);
         spire_ptrs.push_back(new_spire);
+        break;
     }
 
     case 'd':
@@ -202,7 +215,21 @@ void Model::NewCommand(char type, int id, Point2D loc)
         if (GetDemonHideoutPtr(id))
             throw Invalid_Input("DemonHideout " + to_string(id) + " already exists.");
 
-        DemonHideout *new_hideout = new DemonHideout(10, 1, 2, 3, id, loc);
+        int max_battle;
+        int mana_loss;
+        double cost;
+        double experience_per_battle;
+        cout << "Enter Max Battles, Mana Loss per Battle, Cost, and Experience per Battle: ";
+        cin >> max_battle >> mana_loss >> cost >> experience_per_battle;
+        while(cin.fail() || max_battle <= 0 || mana_loss <= 0 || cost <= 0 || experience_per_battle <= 0) {
+            cin.clear();
+            cin.ignore(100, '\n');
+            cout << "Error. Enter a valid input for Max Battles, Mana Loss per Battle, Cost, and Experience per Battle: ";
+            cin >> max_battle >> mana_loss >> cost >> experience_per_battle;
+        }
+
+        DemonHideout *new_hideout = new DemonHideout(max_battle, mana_loss, cost, experience_per_battle, id, loc);
+
         object_ptrs.push_back(new_hideout);
         active_ptrs.push_back(new_hideout);
         hideout_ptrs.push_back(new_hideout);
@@ -214,8 +241,22 @@ void Model::NewCommand(char type, int id, Point2D loc)
         if (GetMagePtr(id))
             throw Invalid_Input("Mage " + to_string(id) + " already exists.");
 
-        string name = "New Mage" + to_string(id);
-        Mage *new_mage = new Mage(name, id, 'M', 1, loc);
+        string name;
+        cout << "Enter mage name: ";
+        cin >> name;
+
+        int speed;
+        cout << "Enter mage speed: ";
+        cin >> speed;
+        while (cin.fail() || speed <= 0)
+        {
+            cin.clear();
+            cin.ignore(100, '\n');
+            cout << "Error. Enter a valid speed: ";
+            cin >> speed;
+        }
+
+        Mage *new_mage = new Mage(name, id, 'M', speed, loc);
 
         object_ptrs.push_back(new_mage);
         active_ptrs.push_back(new_mage);
@@ -223,7 +264,7 @@ void Model::NewCommand(char type, int id, Point2D loc)
         break;
     }
 
-    case 'o':
+    case 'o': //??finsih
     {
         if (GetRoamingDemonPtr(id))
             throw Invalid_Input("RoamingDemon " + to_string(id) + " already exists.");

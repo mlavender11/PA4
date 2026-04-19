@@ -79,7 +79,6 @@ void getInput(Model &model, View &view)
     cout << endl
          << "*********" << endl;
     char code;
-    int in1, in2, in3, in4;
 
     cout << "Enter a command: ";
     cin >> code;
@@ -89,38 +88,63 @@ void getInput(Model &model, View &view)
         switch (code)
         {
         case 'm':
-            cin >> in1 >> in2 >> in3;
-            if (!model.GetMagePtr(in1))
-                throw Invalid_Input("No mage with id: " + to_string(in1));
-            if (in2 < 0 || in2 > view.GetMaxSize() || in3 < 0 || in3 > view.GetMaxSize())
-                throw Invalid_Input("Coordinates (" + to_string(in2) + ", " + to_string(in3) + ") are out of bounds");
-            DoMoveCommand(model, in1, Point2D(in2, in3));
+        {
+            int id;
+            double x, y;
+            cin >> id >> x >> y;
+            if (cin.fail())
+                throw Invalid_Input("Wrong input types");
+            if (!model.GetMagePtr(id))
+                throw Invalid_Input("No mage with id: " + to_string(id));
+            if (x < 0 || x > view.GetMaxSize() || y < 0 || y > view.GetMaxSize())
+                throw Invalid_Input("Coordinates (" + to_string(x) + ", " + to_string(y) + ") are out of bounds");
+            DoMoveCommand(model, id, Point2D(x, y));
             break;
+        }
 
         case 's':
+        {
+            int in1, in2;
             cin >> in1 >> in2;
+            if (cin.fail())
+                throw Invalid_Input("Wrong input types");
             if (!model.GetMagePtr(in1))
                 throw Invalid_Input("No mage with id: " + to_string(in1));
             if (!model.GetManaSpirePtr(in2))
                 throw Invalid_Input("No spire with id: " + to_string(in2));
             DoMoveToSpireCommand(model, in1, in2);
             break;
+        }
         case 'd':
+        {
+            int in1, in2;
             cin >> in1 >> in2;
+            if (cin.fail())
+                throw Invalid_Input("Wrong input types");
             if (!model.GetMagePtr(in1))
                 throw Invalid_Input("No mage with id: " + to_string(in1));
             if (!model.GetDemonHideoutPtr(in2))
                 throw Invalid_Input("No hideout with id: " + to_string(in2));
             DoMoveToHideoutCommand(model, in1, in2);
             break;
+        }
         case 'h':
+        {
+            int in1;
             cin >> in1;
+            if (cin.fail())
+                throw Invalid_Input("Wrong input types");
             if (!model.GetMagePtr(in1))
                 throw Invalid_Input("No mage with id: " + to_string(in1));
             DoStopCommand(model, in1);
             break;
+        }
         case 'c':
+        {
+            int in1, in2;
             cin >> in1 >> in2;
+            if (cin.fail())
+                throw Invalid_Input("Wrong input types");
             if (!model.GetMagePtr(in1))
                 throw Invalid_Input("No mage with id: " + to_string(in1));
             if (model.GetMagePtr(in1)->GetState() == RECOVERING_MANA)
@@ -129,8 +153,13 @@ void getInput(Model &model, View &view)
                 throw Invalid_Input("Mage " + to_string(in1) + " is not at a ManaSpire");
             DoRecoverInSpireCommand(model, in1, in2);
             break;
+        }
         case 'b':
+        {
+            int in1, in2;
             cin >> in1 >> in2;
+            if (cin.fail())
+                throw Invalid_Input("Wrong input types");
             if (!model.GetMagePtr(in1))
                 throw Invalid_Input("No mage with id: " + to_string(in1));
             if (model.GetMagePtr(in1)->GetState() == BATTLING_IN_HIDEOUT)
@@ -139,35 +168,52 @@ void getInput(Model &model, View &view)
                 throw Invalid_Input("Mage " + to_string(in1) + " is not at a DemonHideout");
             DoBattleCommand(model, in1, in2);
             break;
+        }
         case 'a':
+        {
             DoAdvanceCommand(model, view);
             break;
+        }
         case 'r':
+        {
             DoRunCommand(model, view);
             break;
+        }
         case 'q':
+        {
             cout << "Quitting" << endl;
             exit(0);
             break;
+        }
 
         case 'n':
-            cin >> in1 >> in2 >> in3 >> in4;
+        {
+            char type;
+            int id;
+            double x, y;
+            cin >> type >> id >> x >> y;
 
-            if (in1 != 's' && in1 != 'd' && in1 != 'g' && in1 != 'o')
-                throw Invalid_Input(to_string(in1) + " is not a valid type");
-            if (in3 < 0 || in3 > view.GetMaxSize() || in4 < 0 || in4 > view.GetMaxSize())
-                throw Invalid_Input("Coordinates (" + to_string(in3) + ", " + to_string(in4) + ") are out of bounds");
+            if (cin.fail())
+                throw Invalid_Input("Wrong input types");
+            if (type != 's' && type != 'd' && type != 'g' && type != 'o')
+                throw Invalid_Input(string(1, type) + " is not a valid type");
+            if (x < 0 || x > view.GetMaxSize() || y < 0 || y > view.GetMaxSize())
+                throw Invalid_Input("Coordinates (" + to_string(x) + ", " + to_string(y) + ") are out of bounds");
 
-            model.NewCommand(in1, in2, Point2D(in3, in4));
+            model.NewCommand(type, id, Point2D(x, y));
+            break;
+        }
 
         default:
-            throw Invalid_Input("Unkown command entered");
+            throw Invalid_Input("Unknown command entered");
         }
         cin.ignore(numeric_limits<streamsize>::max(), '\n');
     }
 
     catch (Invalid_Input &e)
     {
+        if (cin.fail())
+            cin.clear();
         cin.ignore(numeric_limits<streamsize>::max(), '\n');
         cout << "Error: " << e.msg_ptr << endl;
     }
