@@ -123,6 +123,8 @@ void getInput(Model &model, View &view)
             cin >> in1 >> in2;
             if (!model.GetMagePtr(in1))
                 throw Invalid_Input("No mage with id: " + to_string(in1));
+            if (model.GetMagePtr(in1)->GetState() == RECOVERING_MANA)
+                throw Invalid_Input("Mage " + to_string(in1) + " is already recovering mana");
             if (model.GetMagePtr(in1)->GetState() != AT_SPIRE)
                 throw Invalid_Input("Mage " + to_string(in1) + " is not at a ManaSpire");
             DoRecoverInSpireCommand(model, in1, in2);
@@ -131,6 +133,8 @@ void getInput(Model &model, View &view)
             cin >> in1 >> in2;
             if (!model.GetMagePtr(in1))
                 throw Invalid_Input("No mage with id: " + to_string(in1));
+            if (model.GetMagePtr(in1)->GetState() == BATTLING_IN_HIDEOUT)
+                throw Invalid_Input("Mage " + to_string(in1) + " is already battling");
             if (model.GetMagePtr(in1)->GetState() != IN_HIDEOUT)
                 throw Invalid_Input("Mage " + to_string(in1) + " is not at a DemonHideout");
             DoBattleCommand(model, in1, in2);
