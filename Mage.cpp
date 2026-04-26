@@ -343,17 +343,29 @@ bool Mage::UpdateLocation()
     if (fabs(destination.x - location.x) <= fabs(delta.x) && fabs(destination.y - location.y) <= fabs(delta.y))
     {
         gold_pieces += GetRandomAmountOfGP();
+        prevLocation = location;
         location = destination;
         cout << display_code << id_num << ": I'm there!" << endl;
         mana -= 1;
+
+        if (HuntedByDemon) {
+            follower->UpdateLocation(prevLocation);
+        }
+
         return true;
     }
     else
     {
         gold_pieces += GetRandomAmountOfGP();
+        prevLocation = location;
         location = location + delta;
         cout << display_code << id_num << ": step...!" << endl;
         mana -= 1;
+
+        if (HuntedByDemon) {
+            follower->UpdateLocation(prevLocation);
+        }
+
         return false;
     }
 }
