@@ -1,5 +1,6 @@
 
 #include "RoamingDemon.h"
+#include "Mage.h"
 using namespace std;
 
 RoamingDemon::RoamingDemon(string name, double attack, double health, bool variant, int id, Point2D in_loc)
@@ -44,6 +45,7 @@ bool RoamingDemon::IsAlive()
 
 bool RoamingDemon::Update()
 {
+    if (health <= 0) state = DEAD;
     switch (state)
     {
     case IN_ENVIRONMENT:
@@ -53,9 +55,11 @@ bool RoamingDemon::Update()
         return false;
         break;
     case IN_HUNT:
+        cout << "RoamingDemon " << this->id_num << " is following Mage " << current_mage->GetId() << endl;
         return false; // chkec this
         break;
     }
+    return false;
 }
 
 void RoamingDemon::ShowStatus() const
@@ -88,4 +92,10 @@ bool RoamingDemon::ShouldBeVisible() const
 bool RoamingDemon::isDead() const
 {
     return DEAD;
+}
+
+bool RoamingDemon::UpdateLocation(Point2D loc)
+{
+    this->location = loc;
+    return true; //?? What to do with this
 }

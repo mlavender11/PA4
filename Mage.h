@@ -70,6 +70,7 @@ private:
 
     RoamingDemon *follower; // Roaming demon following this mage
     bool HuntedByDemon;     // True if there is a mage following it
+    Point2D prevLocation; // For the roamer to lag behind
 };
 
 double GetRandomAmountOfGP();
