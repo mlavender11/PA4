@@ -16,6 +16,9 @@ Mage::Mage() : GameObject('M')
     current_spire = 0;
     current_hideout = 0;
 
+    follower = 0;
+    HuntedByDemon = false;
+
     cout << "Mage default constructed" << endl;
 }
 
@@ -34,6 +37,10 @@ Mage::Mage(char in_code) : GameObject(in_code)
     crystals_to_buy = 0;
     current_spire = 0;
     current_hideout = 0;
+
+    follower = 0;
+    HuntedByDemon = false;
+
     cout << "Mage constructed." << endl;
 
     // initialize to null pointers
@@ -55,6 +62,9 @@ Mage::Mage(string in_name, int in_id, char in_code, unsigned int in_speed, Point
     crystals_to_buy = 0;
     current_spire = 0;
     current_hideout = 0;
+
+    follower = 0;
+    HuntedByDemon = false;
 
     cout << "Mage constructed." << endl;
 }
@@ -110,7 +120,6 @@ void Mage::StartMovingToSpire(ManaSpire *spire)
 {
     Point2D dest = spire->GetLocation();
     current_spire = spire;
-    
 
     if (state == KNOCKED_OUT)
     {
@@ -135,9 +144,9 @@ void Mage::StartBattling(unsigned int num_battles)
         cout << display_code << id_num << ": I can only battle in a DemonHideout" << endl;
         return;
     }
-    
+
     battles_to_buy = min(num_battles, current_hideout->GetNumBattlesRemaining());
-    double goldNeeded = current_hideout->GetGoldCost(battles_to_buy);    
+    double goldNeeded = current_hideout->GetGoldCost(battles_to_buy);
     if (mana == 0)
     {
         cout << display_code << id_num << ": I'm knocked out and out of mana so no more battles for me..." << endl;
@@ -152,7 +161,7 @@ void Mage::StartBattling(unsigned int num_battles)
     }
     else
     {
-        
+
         state = BATTLING_IN_HIDEOUT;
         cout << display_code << id_num << ": Started to battle at the DemonHideout " << current_hideout->GetId() << " with " << num_battles << " battles." << endl;
     }
@@ -243,7 +252,6 @@ void Mage::ShowStatus() const
 
 bool Mage::Update()
 {
-    
 
     if (IsKnockedOut() && state != AT_SPIRE && state != RECOVERING_MANA && state != IN_HIDEOUT)
     {
@@ -377,4 +385,16 @@ string Mage::GetName()
 bool Mage::isDead() const
 {
     return state == KNOCKED_OUT;
+}
+
+void Mage::AddFollower(RoamingDemon *roamer)
+{
+    HuntedByDemon = true;
+    follower = roamer;
+    cout << "Mage " << id_num << " is being followed by RoamingDemon " << roamer->GetId() << endl;
+}
+
+bool Mage::IsFollowed()
+{
+    return HuntedByDemon;
 }

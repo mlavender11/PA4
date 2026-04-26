@@ -160,6 +160,25 @@ bool Model::Update()
         exit(0);
     }
 
+    for (RoamingDemon * roamer : roaming_ptrs) // Loop over all roaming demons
+    {
+        if (roamer->get_in_combat()) continue; // If the roamer is already following a mage, ignore
+
+        Point2D roamerLoc = roamer->GetLocation();
+        Point2D mageLoc;
+
+        for (Mage* mage : mage_ptrs)
+        {
+            if (mage->IsFollowed()) continue; // If the mage is already being followed, ignore
+            mageLoc = mage->GetLocation();
+
+            if (mageLoc == roamerLoc) // If the mage is at the roamer's location, then the roamer will start following it
+            {
+                roamer->follow(mage);
+            }
+        }
+    }
+
     return output;
 }
 

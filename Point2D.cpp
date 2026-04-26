@@ -38,3 +38,8 @@ Vector2D Point2D::operator-(Point2D p2)
 {
     return Vector2D(x - p2.x, y - p2.y);
 }
+
+bool Point2D::operator==(const Point2D &other_point) const
+{
+    return (x == other_point.x && y == other_point.y);
+}

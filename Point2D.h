@@ -20,5 +20,6 @@ public:
     friend ostream &operator<<(ostream &out, const Point2D &p);
     Point2D operator+(Vector2D);
     Vector2D operator-(Point2D);
+    bool operator==(const Point2D &other_point) const;
 };
 #endif
