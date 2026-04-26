@@ -13,8 +13,8 @@ RoamingDemon::RoamingDemon(string name, double attack, double health, bool varia
 
 void RoamingDemon::follow(Mage *m)
 {
-    current_mage = m;
-    // update mage to being followed
+    current_mage = m; // Follow mage
+    m->AddFollower(this); // Set mage to being followed
 }
 
 bool RoamingDemon::get_variant()

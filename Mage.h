@@ -4,8 +4,10 @@
 #include "GameObject.h"
 #include "DemonHideout.h"
 #include "ManaSpire.h"
+#include "RoamingDemon.h"
 
-enum MageStates {
+enum MageStates
+{
     KNOCKED_OUT = 0,
     MOVING = 1,
     STOPPED = 2,
@@ -17,16 +19,17 @@ enum MageStates {
     RECOVERING_MANA = 8
 };
 
-class Mage : public GameObject {
-public: 
+class Mage : public GameObject
+{
+public:
     Mage();
     Mage(char in_code);
     Mage(string in_name, int in_id, char in_code, unsigned int in_speed, Point2D in_loc);
     ~Mage();
 
     void StartMoving(Point2D dest);
-    void StartMovingToHideout(DemonHideout* hideout);
-    void StartMovingToSpire(ManaSpire* spire);
+    void StartMovingToHideout(DemonHideout *hideout);
+    void StartMovingToSpire(ManaSpire *spire);
 
     void StartBattling(unsigned int num_battles);
     void StartRecoveringMana(unsigned int num_crystals);
@@ -42,6 +45,9 @@ public:
 
     bool isDead() const override;
 
+    void AddFollower(RoamingDemon *roamer);
+
+    bool IsFollowed();
 
 protected:
     bool UpdateLocation();
@@ -57,10 +63,13 @@ private:
     unsigned int battles_to_buy;
     unsigned int crystals_to_buy;
     string name;
-    ManaSpire* current_spire;
-    DemonHideout* current_hideout;
+    ManaSpire *current_spire;
+    DemonHideout *current_hideout;
     Point2D destination;
     Vector2D delta;
+
+    RoamingDemon *follower; // Roaming demon following this mage
+    bool HuntedByDemon;     // True if there is a mage following it
 };
 
 double GetRandomAmountOfGP();
