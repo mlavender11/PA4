@@ -52,7 +52,8 @@ public:
     Vector2D getDelta();
 
     void save(ofstream& file) const override;
-    void restore(ifstream& file, Model& model) override;
+    static Mage* restore(ifstream& file);
+    void setState(MageStates state);
     
 
 protected:
