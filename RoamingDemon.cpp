@@ -177,11 +177,11 @@ RoamingDemon* RoamingDemon::restore(stringstream& file)
     double attack, health;
     bool variant, in_combat;
     string name;
-    int current_mage;
+    int current_mage_id;
 
-    file >> attack >> health >> variant >> in_combat >> name >> current_mage;
+    file >> attack >> health >> variant >> in_combat >> name >> current_mage_id;
 
-    RoamingDemon* demon = new RoamingDemon(name, attack, health, variant, id_num, Point2D(locX, locY), current_mage);
+    RoamingDemon* demon = new RoamingDemon(name, attack, health, variant, id_num, Point2D(locX, locY), current_mage_id);
 
     RoamingDemonStates roamerState = (RoamingDemonStates)state;
     demon->setState(roamerState);
