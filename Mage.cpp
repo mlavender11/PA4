@@ -442,4 +442,8 @@ void Mage::save(ofstream& file) const
     file << prevLocation.x << " " << prevLocation.y;
     file << endl;
 }
-// void restore(ifstream& file, Model& model) const;
+
+void Mage::restore(ifstream &file, Model &model) const
+{
+    // todo
+}

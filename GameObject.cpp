@@ -45,10 +45,10 @@ GameObject::~GameObject()
     cout << "GameObject destructed" << endl;
 }
 
-void GameObject::DrawSelf(char* ptr)
+void GameObject::DrawSelf(char *ptr)
 {
     *ptr = display_code;
-    *(ptr+1) = '0' + id_num;
+    *(ptr + 1) = '0' + id_num;
 }
 
 char GameObject::GetDisplayCode() const
@@ -56,7 +56,7 @@ char GameObject::GetDisplayCode() const
     return display_code;
 }
 
-void GameObject::save(ofstream& file) const
+void GameObject::save(ofstream &file) const
 {
 
     // Write game object functions
@@ -66,4 +66,7 @@ void GameObject::save(ofstream& file) const
     file << state;
 }
 
-// void restore(ifstream& file, Model& model) const
+void GameObject::restore(ifstream &file, Model &model) const
+{
+    // todo
+}

@@ -115,3 +115,8 @@ void RoamingDemon::save(ofstream& file) const
 
     file << endl;
 }
+
+void RoamingDemon::restore(ifstream &file, Model &model) const
+{
+    // todo
+}
