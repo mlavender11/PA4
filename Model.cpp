@@ -261,11 +261,11 @@ void Model::NewCommand(char type, int id, Point2D loc)
             throw Invalid_Input("Mage " + to_string(id) + " already exists.");
 
         string name;
-        cout << "Enter mage name: ";
+        cout << "Enter Mage name: ";
         cin >> name;
 
         int speed;
-        cout << "Enter mage speed: ";
+        cout << "Enter Mage speed: ";
         cin >> speed;
         while (cin.fail() || speed <= 0)
         {
@@ -283,13 +283,28 @@ void Model::NewCommand(char type, int id, Point2D loc)
         break;
     }
 
-    case 'o': //??finsih
+    case 'o':
     {
         if (GetRoamingDemonPtr(id))
             throw Invalid_Input("RoamingDemon " + to_string(id) + " already exists.");
 
-        string name = "Placeholder"; //??
-        RoamingDemon *new_roamer = new RoamingDemon(name, 5, 2, false, id, loc);
+        string name;
+        cout << "Enter RoamingDemon name: ";
+        cin >> name;
+
+
+        double attack;
+        double health;
+        cout << "Enter Attack and Health values: ";
+        cin >> attack >> health;
+        while(cin.fail() || attack <= 0 || health <= 0) {
+            cin.clear();
+            cin.ignore(100, '\n');
+            cout << "Error. Enter a valid input for Attack and Health: ";
+            cin >> attack >> health;
+        }
+
+        RoamingDemon *new_roamer = new RoamingDemon(name, attack, health, false, id, loc);
 
         object_ptrs.push_back(new_roamer);
         active_ptrs.push_back(new_roamer);
