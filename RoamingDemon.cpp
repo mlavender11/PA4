@@ -14,6 +14,8 @@ RoamingDemon::RoamingDemon(string name, double attack, double health, bool varia
 
     current_mage = nullptr;
     this->mage_ptrs = mage_ptrs;
+
+    cout << "RoamingDemon constructed." << endl;
 }
 
 RoamingDemon::RoamingDemon(string name, double attack, double health, bool variant, int id, Point2D in_loc, int in_mage_id)
@@ -27,6 +29,13 @@ RoamingDemon::RoamingDemon(string name, double attack, double health, bool varia
 
     current_mage = nullptr;
     this->in_mage_id = in_mage_id;
+
+    cout << "RoamingDemon constructed." << endl;
+}
+
+RoamingDemon::~RoamingDemon()
+{
+    cout << "RoamingDemon destructed." << endl;
 }
 
 void RoamingDemon::follow(Mage *m)
