@@ -5,6 +5,7 @@
 #include "DemonHideout.h"
 #include "ManaSpire.h"
 #include "RoamingDemon.h"
+#include <sstream>
 
 enum MageStates
 {
@@ -52,7 +53,7 @@ public:
     Vector2D getDelta();
 
     void save(ofstream& file) const override;
-    static Mage* restore(ifstream& file);
+    static Mage* restore(stringstream& file);
     void setState(MageStates state);
     
 

@@ -130,7 +130,7 @@ void DemonHideout::save(ofstream &file) const
     file << experience_per_battle << " ";
     file << endl;
 }
-DemonHideout *DemonHideout::restore(ifstream &file)
+DemonHideout *DemonHideout::restore(stringstream &file)
 {
     // GameObject data
     int id_num;

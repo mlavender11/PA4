@@ -108,22 +108,22 @@ void ManaSpire::save(ofstream &file) const
     file << endl;
 }
 
-ManaSpire *ManaSpire::restore(ifstream &file)
+ManaSpire *ManaSpire::restore(stringstream &line)
 {
     // GameObject data
     int id_num;
     double locX, locY;
     int state;
-    file >> id_num >> locX >> locY >> state;
+    line >> id_num >> locX >> locY >> state;
 
     // Building data
     unsigned int mage_count;
-    file >> mage_count;
+    line >> mage_count;
 
     // Spire data
     unsigned int crystal_capacity, num_crystals_remaining; // need to in num remainning
     double cost_per_crystal;
-    file >> crystal_capacity >> num_crystals_remaining >> cost_per_crystal;
+    line >> crystal_capacity >> num_crystals_remaining >> cost_per_crystal;
 
     ManaSpire *spire = new ManaSpire(id_num, cost_per_crystal, crystal_capacity, Point2D(locX, locY));
     spire->setMages(mage_count);

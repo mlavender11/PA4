@@ -47,7 +47,7 @@ public:
     bool UpdateLocation(Point2D loc); // Follow Mage, called from Mage
 
     void save(ofstream& file) const override;
-    static RoamingDemon* restore(ifstream& file);
+    static RoamingDemon* restore(stringstream& file);
     void setState(RoamingDemonStates state);
 
     bool findMages();

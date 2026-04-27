@@ -15,6 +15,7 @@
 #include "RoamingDemon.h"
 #include "Invalid_Input.h"
 #include <list>
+#include <sstream>
 
 class Model
 {
@@ -45,7 +46,8 @@ public:
     void NewCommand(char type, int id, Point2D loc);
 
     void save(ofstream &file) const;
-    void restore(ofstream &file);
+    void restore(ifstream &file);
+    void setTime(int time);
 };
 
 #endif
