@@ -29,11 +29,11 @@ Model::Model()
     object_ptrs.push_back(DemonHideout2);
     hideout_ptrs.push_back(DemonHideout2);
 
-    RoamingDemon *roamer1 = new RoamingDemon("Roamer 1", 5, 2, false, 1, Point2D(10, 12), mage_ptrs);
+    RoamingDemon *roamer1 = new RoamingDemon("Roamer1", 5, 2, false, 1, Point2D(10, 12), mage_ptrs);
     object_ptrs.push_back(roamer1);
     roaming_ptrs.push_back(roamer1);
 
-    RoamingDemon *roamer2 = new RoamingDemon("Roamer 2", 5, 2, false, 2, Point2D(15, 5), mage_ptrs);
+    RoamingDemon *roamer2 = new RoamingDemon("Roamer2", 5, 2, false, 2, Point2D(15, 5), mage_ptrs);
     object_ptrs.push_back(roamer2);
     roaming_ptrs.push_back(roamer2);
 
@@ -355,10 +355,10 @@ void Model::restore(ifstream &file)
     roaming_ptrs.clear();
 
     // go thorugh file, make new obj based on type
-    
-    string line; // each line is a saved object
-    char obj_code; //First entry in every string
-    int time; // Saved game time
+
+    string line;   // each line is a saved object
+    char obj_code; // First entry in every string
+    int time;      // Saved game time
     int num_objects;
 
     file >> time >> num_objects;
@@ -368,7 +368,6 @@ void Model::restore(ifstream &file)
         stringstream obj_data_line(line);
 
         obj_data_line >> obj_code;
-        
 
         switch (obj_code)
         {
@@ -389,30 +388,38 @@ void Model::restore(ifstream &file)
         }
     }
 
-    // After all are made, assign pointers
-
     // Add all objects to object and active ptrs lists
-    for (GameObject* obj : mage_ptrs)
+    for (GameObject *obj : mage_ptrs)
     {
         object_ptrs.push_back(obj);
         active_ptrs.push_back(obj);
     }
-    for (GameObject* obj : spire_ptrs)
+    for (GameObject *obj : spire_ptrs)
     {
         object_ptrs.push_back(obj);
         active_ptrs.push_back(obj);
     }
-    for (GameObject* obj : hideout_ptrs)
+    for (GameObject *obj : hideout_ptrs)
     {
         object_ptrs.push_back(obj);
         active_ptrs.push_back(obj);
     }
-    for (GameObject* obj : roaming_ptrs)
+    for (GameObject *obj : roaming_ptrs)
     {
         object_ptrs.push_back(obj);
         active_ptrs.push_back(obj);
     }
 
+    // After all are made, assign pointers
+    for (Mage *mage : mage_ptrs)
+    {
+        mage->restorePointers(*this);
+    }
+    for (RoamingDemon *roamer : roaming_ptrs)
+    {
+        roamer->restorePointers(*this);
+        roamer->addMageList(this->mage_ptrs);
+    }
 
     this->setTime(time);
     file.close();
