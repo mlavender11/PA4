@@ -107,7 +107,7 @@ RoamingDemon *Model::GetRoamingDemonPtr(int id)
 bool Model::Update()
 {
     time++;
-    bool output = false;
+    bool output = false; // Output is true if an event happens - tells run to pause
     for (GameObject *obj : active_ptrs)
     {
         if (obj->Update())
@@ -160,21 +160,24 @@ bool Model::Update()
         exit(0);
     }
 
-    for (RoamingDemon * roamer : roaming_ptrs) // Loop over all roaming demons
+    for (RoamingDemon *roamer : roaming_ptrs) // Loop over all roaming demons
     {
-        if (roamer->get_in_combat()) continue; // If the roamer is already following a mage, ignore
+        if (roamer->get_in_combat())
+            continue; // If the roamer is already following a mage, ignore
 
         Point2D roamerLoc = roamer->GetLocation();
         Point2D mageLoc;
 
-        for (Mage* mage : mage_ptrs)
+        for (Mage *mage : mage_ptrs)
         {
-            if (mage->IsFollowed()) continue; // If the mage is already being followed, ignore
+            if (mage->IsFollowed())
+                continue; // If the mage is already being followed, ignore
             mageLoc = mage->GetLocation();
 
             if (mageLoc == roamerLoc) // If the mage is at the roamer's location, then the roamer will start following it
             {
                 roamer->follow(mage);
+                output = true;
             }
         }
     }
@@ -215,7 +218,8 @@ void Model::NewCommand(char type, int id, Point2D loc)
         int crystal_cap;
         cout << "Enter Crystal Cost and Crystal Capacity: ";
         cin >> crystal_cost >> crystal_cap;
-        while (cin.fail() || crystal_cost <= 0 || crystal_cap <= 0) {
+        while (cin.fail() || crystal_cost <= 0 || crystal_cap <= 0)
+        {
             cin.clear();
             cin.ignore(100, '\n');
             cout << "Error. Enter a valid input for Crystal Cost and Crystal Capacity: ";
@@ -241,7 +245,8 @@ void Model::NewCommand(char type, int id, Point2D loc)
         double experience_per_battle;
         cout << "Enter Max Battles, Mana Loss per Battle, Cost, and Experience per Battle: ";
         cin >> max_battle >> mana_loss >> cost >> experience_per_battle;
-        while(cin.fail() || max_battle <= 0 || mana_loss <= 0 || cost <= 0 || experience_per_battle <= 0) {
+        while (cin.fail() || max_battle <= 0 || mana_loss <= 0 || cost <= 0 || experience_per_battle <= 0)
+        {
             cin.clear();
             cin.ignore(100, '\n');
             cout << "Error. Enter a valid input for Max Battles, Mana Loss per Battle, Cost, and Experience per Battle: ";
@@ -293,12 +298,12 @@ void Model::NewCommand(char type, int id, Point2D loc)
         cout << "Enter RoamingDemon name: ";
         cin >> name;
 
-
         double attack;
         double health;
         cout << "Enter Attack and Health values: ";
         cin >> attack >> health;
-        while(cin.fail() || attack <= 0 || health <= 0) {
+        while (cin.fail() || attack <= 0 || health <= 0)
+        {
             cin.clear();
             cin.ignore(100, '\n');
             cout << "Error. Enter a valid input for Attack and Health: ";
@@ -320,9 +325,9 @@ void Model::NewCommand(char type, int id, Point2D loc)
 
 void Model::save(ofstream &file) const
 {
-    file << time << endl; // save game time
-    file << active_ptrs.size() << endl; // save number of active objects 
-    for (GameObject * obj : active_ptrs) // save each object
+    file << time << endl;               // save game time
+    file << active_ptrs.size() << endl; // save number of active objects
+    for (GameObject *obj : active_ptrs) // save each object
     {
         obj->save(file); // each writes its display code and id num
     }
