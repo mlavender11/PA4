@@ -185,7 +185,7 @@ bool Model::Update()
 void Model::Display(View &view)
 {
     view.Clear();
-    for (GameObject *obj : object_ptrs)
+    for (GameObject *obj : active_ptrs)
     {
         view.Plot(obj);
     }

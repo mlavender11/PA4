@@ -224,7 +224,9 @@ void getInput(Model &model, View &view)
                 throw Invalid_Input("Could not open file " + filename);
             }
             else
-                model.read(file); 
+                // model.read(file); 
+            
+            break;
         }
 
         default:
