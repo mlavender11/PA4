@@ -412,3 +412,35 @@ bool Mage::IsFollowed()
 {
     return HuntedByDemon;
 }
+
+void Mage::save(ofstream& file) const
+{
+    GameObject::save(file); // Call parent functions 
+    file << speed << endl;
+    file << is_at_spire << endl;
+    file << is_in_hideout << endl;
+    file << mana << endl;
+    file << experience << endl;
+    file << gold_pieces << endl;
+    file << battles_to_buy << endl;
+    file << crystals_to_buy << endl;
+    file << name << endl;
+
+    if (current_spire != nullptr) file << current_spire->GetId() << endl;
+    else file << -1 << endl;
+
+    if (current_hideout != nullptr) file << current_hideout->GetId() << endl;
+    else file << -1 << endl;
+
+    file << destination.x << " " << destination.y << endl;
+    file << delta.x << " " << delta.y << endl;
+
+    if (follower != nullptr) file << follower->GetId() << endl;
+    else file << -1 << endl;
+
+    file << HuntedByDemon << endl;
+    file << prevLocation.x << " " << prevLocation.y << endl;
+
+
+}
+// void restore(ifstream& file, Model& model) const;

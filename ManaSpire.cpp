@@ -96,3 +96,11 @@ bool ManaSpire::isDead() const
 {
     return state == NO_CRYSTALS_AVAILABLE;
 }
+
+void ManaSpire::save(ofstream& file) const
+{
+    Building::save(file); // Call parent functions 
+    file << crystal_capacity << endl;
+    file << num_crystals_remaining << endl;
+    file << cost_per_crystal << endl;
+}

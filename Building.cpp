@@ -27,6 +27,7 @@ void Building::RemoveOneMage()
 
 void Building::ShowStatus() const
 {
+    GameObject::ShowStatus();
     cout << display_code << id_num << " located at " << location << endl;
     if (mage_count == 1)
         cout << "1 mage is in this building" << endl;
@@ -38,3 +39,10 @@ bool Building::ShouldBeVisible() const
 {
     return true;
 }
+
+void Building::save(ofstream& file) const
+{
+    GameObject::save(file);
+    file << mage_count << endl;
+}
+// void restore(ifstream& file, Model& model) const;

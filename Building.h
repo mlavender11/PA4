@@ -15,6 +15,9 @@ public:
     void RemoveOneMage();
     void ShowStatus() const override;
     bool ShouldBeVisible() const override;
+
+    void save(ofstream& file) const;
+    void restore(ifstream& file, Model& model) const;
 };
 
 #endif

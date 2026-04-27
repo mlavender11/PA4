@@ -1,6 +1,9 @@
 #ifndef GAMEOBJECT_H
 #define GAMEOBJECT_H
 #include "Point2D.h"
+#include <fstream>
+class Model;
+
 class GameObject
 {
 protected:
@@ -23,6 +26,9 @@ public:
     virtual bool Update() = 0;
     virtual bool ShouldBeVisible() const = 0;
     virtual bool isDead() const = 0;
+
+    virtual void save(ofstream& file) const;
+    virtual void restore(ifstream& file, Model& model) const;
 
     void DrawSelf(char* ptr);
 };

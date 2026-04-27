@@ -49,6 +49,9 @@ public:
 
     bool IsFollowed();
 
+    void save(ofstream& file) const override;
+    void restore(ifstream& file, Model& model) const override;
+
 protected:
     bool UpdateLocation();
     void SetupDestination(Point2D dest);
