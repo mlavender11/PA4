@@ -440,7 +440,7 @@ void Mage::save(ofstream& file) const
 
     file << HuntedByDemon << " ";
     file << prevLocation.x << " " << prevLocation.y << " ";
-    file << endl << " ";
+    file << endl;
 }
 
 void Mage::restore(ifstream &file, Model &model) const
