@@ -108,7 +108,7 @@ void ManaSpire::save(ofstream &file) const
     file << endl;
 }
 
-ManaSpire *ManaSpire::restore(ifstream &file, Model &model)
+ManaSpire *ManaSpire::restore(ifstream &file)
 {
     // GameObject data
     int id_num;
