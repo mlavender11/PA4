@@ -17,6 +17,8 @@ public:
     bool ShouldBeVisible() const override;
 
     void save(ofstream& file) const override;
+
+    void setMages(int num_mages);
 };
 
 #endif
