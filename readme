@@ -1,0 +1,3 @@
+If a Mage passes within a radius of 3 of a roaming demon, the roamer will start following the mage. 
+Every time a mage takes a step with a demon following it, it looses an additional one mana point. Every time the roamer takes a step, it loses 0.25 health.
+If a mage manages to escape a roamer, by killing it (the roamer runs out of health) the mage will gain two experience points.
