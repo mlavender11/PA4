@@ -16,6 +16,21 @@ RoamingDemon::RoamingDemon(string name, double attack, double health, bool varia
     this->mage_ptrs = mage_ptrs;
 }
 
+RoamingDemon::RoamingDemon(string name, double attack, double health, bool variant, int id, Point2D in_loc, list<Mage*> mage_ptrs, int in_mage_id)
+    : GameObject(in_loc, id, 'W')
+{
+    this->name = name;
+    this->attack = attack;
+    this->health = health;
+    this->variant = variant;
+    state = IN_ENVIRONMENT;
+
+    current_mage = nullptr;
+    this->mage_ptrs = mage_ptrs;
+
+    this->in_mage_id = in_mage_id;
+}
+
 void RoamingDemon::follow(Mage *m)
 {
     current_mage = m;     // Follow mage
@@ -142,9 +157,34 @@ void RoamingDemon::save(ofstream &file) const
     file << endl;
 }
 
-void RoamingDemon::restore(ifstream &file, Model &model) const
+static RoamingDemon* restore(ifstream& file, Model& model)
 {
-    // todo
+    //GameObject data
+    int id_num;
+    double locX, locY;
+    int state;
+    cin >> id_num >> locX >> locY;
+
+    //RoamingDemon data
+    double attack, health;
+    bool variant, in_combat;
+    string name;
+    int current_mage;
+
+    cin >> attack >> health >> variant >> in_combat >> name >> current_mage;
+
+    list<Mage*> empty_list; // Empty list of mages to be set later
+    RoamingDemon* demon = new RoamingDemon(name, attack, health, variant, id_num, Point2D(locX, locY), empty_list, current_mage);
+}
+
+void RoamingDemon::addMageList(list<Mage*> mage_ptrs)
+{
+    this->mage_ptrs = mage_ptrs;
+}
+
+int RoamingDemon::getInMageId()
+{
+    return in_mage_id;
 }
 
 // Find mages within detection radius
@@ -163,7 +203,6 @@ bool RoamingDemon::findMages()
     }
     return false;
 }
-
 
 bool pathIntersectsCircle(Point2D start, Vector2D delta, Point2D circleCenter, double radius)
 {

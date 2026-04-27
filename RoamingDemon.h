@@ -23,11 +23,14 @@ protected:
     bool in_combat; //Returns true if the RoamingDemon is attacking a Mage - Default is false
     string name;
     Mage *current_mage; // Holds the current Mage it is following
+    int in_mage_id; // Used during file reading
     double detectionRadius = 5.0;
     list<Mage*> mage_ptrs;
     
+    
 public:
     RoamingDemon(string name, double attack, double health, bool variant, int id, Point2D in_loc, list<Mage*> mage_ptrs);
+    RoamingDemon(string name, double attack, double health, bool variant, int id, Point2D in_loc, list<Mage*> mage_ptrs, int in_mage_id);
     void follow(Mage *m); // This follows Mage m - This should both change the Roaming Demon´s current_mage value and update the mage´s information as needed as well
     bool get_variant();
     double get_attack();
@@ -42,9 +45,12 @@ public:
     bool UpdateLocation(Point2D loc); // Follow Mage, called from Mage
 
     void save(ofstream& file) const override;
-    void restore(ifstream& file, Model& model) const override;
+    static RoamingDemon* restore(ifstream& file, Model& model);
 
     bool findMages();
+
+    void addMageList(list<Mage*> mage_ptrs);
+    int getInMageId();
 
 };
 

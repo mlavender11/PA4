@@ -65,8 +65,3 @@ void GameObject::save(ofstream &file) const
     file << location.x << " " << location.y << " ";
     file << static_cast<int>(state) << " ";
 }
-
-void GameObject::restore(ifstream &file, Model &model) const
-{
-    // todo
-}
