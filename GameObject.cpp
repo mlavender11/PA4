@@ -1,5 +1,6 @@
 #include <iostream>
 #include "GameObject.h"
+#include "Model.h"
 using namespace std;
 
 GameObject::GameObject(char in_code)
@@ -54,3 +55,16 @@ char GameObject::GetDisplayCode() const
 {
     return display_code;
 }
+
+void GameObject::save(ofstream& file) const
+{
+
+    // Write game object functions
+    file << display_code << endl;
+    file << id_num << endl;
+    file << location.x << " " << location.y << endl;
+    file << state << endl;
+
+}
+
+// void restore(ifstream& file, Model& model) const

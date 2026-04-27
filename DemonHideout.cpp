@@ -116,3 +116,17 @@ bool DemonHideout::isDead() const
 {
     return state == DEFEATED;
 }
+
+
+//??
+
+void DemonHideout::save(ofstream& file) const
+{
+    Building::save(file); // Call parent functions 
+    file << num_battles_remaining << endl;
+    file << max_number_of_battles << endl;
+    file << mana_cost_per_battle << endl;
+    file << gold_cost_per_battle << endl;
+    file << experience_per_battle << endl;
+}
+// void restore(ifstream& file, Model& model) const;

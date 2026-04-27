@@ -38,5 +38,8 @@ public:
     bool isDead() const override;
     bool UpdateLocation(Point2D loc); // Follow Mage, called from Mage
 
+    void save(ofstream& file) const override;
+    void restore(ifstream& file, Model& model) const override;
+
 };
 #endif

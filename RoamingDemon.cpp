@@ -101,3 +101,16 @@ bool RoamingDemon::UpdateLocation(Point2D loc)
     this->health -= 0.25; // Loses .25 health with every step
     return true; //?? What to do with this
 }
+
+void RoamingDemon::save(ofstream& file) const
+{
+    GameObject::save(file); // Call parent functions 
+    file << attack << endl;
+    file << health << endl;
+    file << variant << endl;
+    file << in_combat << endl;
+    file << name << endl;
+
+    if (current_mage != nullptr) file << current_mage->GetId() << endl;
+    else file << -1 << endl;
+}

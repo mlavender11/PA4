@@ -32,5 +32,8 @@ public:
     bool passed() const;
     void ShowStatus() const override;
     bool isDead() const override;
+
+    void save(ofstream& file) const override;
+    void restore(ifstream& file, Model& model) const override;
 };
 #endif
