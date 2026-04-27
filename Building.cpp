@@ -45,3 +45,8 @@ void Building::save(ofstream &file) const
     GameObject::save(file);
     file << mage_count << " ";
 }
+
+void Building::setMages(int num_mages)
+{
+    mage_count = num_mages;
+}
