@@ -2,6 +2,7 @@
 #define GAMEOBJECT_H
 #include "Point2D.h"
 #include <fstream>
+#include <sstream>
 class Model;
 
 class GameObject

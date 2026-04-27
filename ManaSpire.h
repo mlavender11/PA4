@@ -31,7 +31,7 @@ public:
     bool isDead() const override;
 
     void save(ofstream& file) const override;
-    static ManaSpire* restore(ifstream& file);
+    static ManaSpire* restore(stringstream& file);
     void setState(ManaSpireStates state);
     void setNumCrystalsRemaining(unsigned int num_remaining);
 };

@@ -339,3 +339,86 @@ void Model::save(ofstream &file) const
 
     file.close();
 }
+
+void Model::restore(ifstream &file)
+{
+
+    for (GameObject *obj : object_ptrs)
+    {
+        delete obj;
+    }
+    object_ptrs.clear();
+    active_ptrs.clear();
+    mage_ptrs.clear();
+    spire_ptrs.clear();
+    hideout_ptrs.clear();
+    roaming_ptrs.clear();
+
+    // go thorugh file, make new obj based on type
+    
+    string line; // each line is a saved object
+    char obj_code; //First entry in every string
+    int time; // Saved game time
+    int num_objects;
+
+    file >> time >> num_objects;
+
+    while (getline(file, line))
+    {
+        stringstream obj_data_line(line);
+
+        obj_data_line >> obj_code;
+        
+
+        switch (obj_code)
+        {
+        case 'M':
+            mage_ptrs.push_back(Mage::restore(obj_data_line));
+            break;
+        case 'S':
+            spire_ptrs.push_back(ManaSpire::restore(obj_data_line));
+            break;
+        case 'D':
+            hideout_ptrs.push_back(DemonHideout::restore(obj_data_line));
+            break;
+        case 'W':
+            roaming_ptrs.push_back(RoamingDemon::restore(obj_data_line));
+            break;
+        default:
+            break;
+        }
+    }
+
+    // After all are made, assign pointers
+
+    // Add all objects to object and active ptrs lists
+    for (GameObject* obj : mage_ptrs)
+    {
+        object_ptrs.push_back(obj);
+        active_ptrs.push_back(obj);
+    }
+    for (GameObject* obj : spire_ptrs)
+    {
+        object_ptrs.push_back(obj);
+        active_ptrs.push_back(obj);
+    }
+    for (GameObject* obj : hideout_ptrs)
+    {
+        object_ptrs.push_back(obj);
+        active_ptrs.push_back(obj);
+    }
+    for (GameObject* obj : roaming_ptrs)
+    {
+        object_ptrs.push_back(obj);
+        active_ptrs.push_back(obj);
+    }
+
+
+    this->setTime(time);
+    file.close();
+}
+
+void Model::setTime(int time)
+{
+    this->time = time;
+}

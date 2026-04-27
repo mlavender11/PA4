@@ -33,8 +33,8 @@ public:
     void ShowStatus() const override;
     bool isDead() const override;
 
-    void save(ofstream& file) const override;
-    static DemonHideout* restore(ifstream& file);
+    void save(ofstream &file) const override;
+    static DemonHideout *restore(stringstream &file);
     void setState(DemonHideoutStates state);
 };
 #endif

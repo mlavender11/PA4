@@ -164,7 +164,7 @@ void RoamingDemon::save(ofstream &file) const
     file << endl;
 }
 
-RoamingDemon* RoamingDemon::restore(ifstream& file)
+RoamingDemon* RoamingDemon::restore(stringstream& file)
 {
     //GameObject data
     int id_num;

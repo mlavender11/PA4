@@ -472,13 +472,13 @@ void Mage::save(ofstream &file) const
     file << endl;
 }
 
-Mage *Mage::restore(ifstream &file)
+Mage *Mage::restore(stringstream &line)
 {
     // GameObject data
     int id_num;
     double locX, locY;
     int state;
-    file >> id_num >> locX >> locY >> state;
+    line >> id_num >> locX >> locY >> state;
 
     // need to finish
 }
