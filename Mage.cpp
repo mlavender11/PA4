@@ -13,10 +13,11 @@ Mage::Mage() : GameObject('M')
     gold_pieces = 0;
     battles_to_buy = 0;
     crystals_to_buy = 0;
-    current_spire = 0;
-    current_hideout = 0;
 
-    follower = 0;
+    current_spire = nullptr;
+    current_hideout = nullptr;
+
+    follower = nullptr;
     HuntedByDemon = false;
 
     cout << "Mage default constructed" << endl;
@@ -35,10 +36,11 @@ Mage::Mage(char in_code) : GameObject(in_code)
     gold_pieces = 0;
     battles_to_buy = 0;
     crystals_to_buy = 0;
-    current_spire = 0;
-    current_hideout = 0;
 
-    follower = 0;
+    current_spire = nullptr;
+    current_hideout = nullptr;
+
+    follower = nullptr;
     HuntedByDemon = false;
 
     cout << "Mage constructed." << endl;
@@ -60,10 +62,11 @@ Mage::Mage(string in_name, int in_id, char in_code, unsigned int in_speed, Point
     gold_pieces = 0;
     battles_to_buy = 0;
     crystals_to_buy = 0;
-    current_spire = 0;
-    current_hideout = 0;
 
-    follower = 0;
+    current_spire = nullptr;
+    current_hideout = nullptr;
+
+    follower = nullptr;
     HuntedByDemon = false;
 
     cout << "Mage constructed." << endl;

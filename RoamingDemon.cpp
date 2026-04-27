@@ -11,6 +11,8 @@ RoamingDemon::RoamingDemon(string name, double attack, double health, bool varia
     this->health = health;
     this->variant = variant;
     state = IN_ENVIRONMENT;
+
+    current_mage = nullptr;
 }
 
 void RoamingDemon::follow(Mage *m)
