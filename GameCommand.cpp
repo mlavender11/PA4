@@ -204,7 +204,6 @@ void getInput(Model &model, View &view)
             model.NewCommand(type, id, Point2D(x, y));
             break;
         }
-
         case 'S': {
             string filename;
             cout << "Enter filename: ";
@@ -214,11 +213,24 @@ void getInput(Model &model, View &view)
             model.save(file);
             break;
         }
+        case 'R': {
+            string filename;
+            cout << "Enter filename: ";
+            cin >> filename;
+
+            ifstream file(filename);
+            if (!file.is_open()) 
+            {
+                throw Invalid_Input("Could not open file " + filename);
+            }
+            else
+                model.read(file); 
+        }
 
         default:
             throw Invalid_Input("Unknown command entered");
         }
-        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Clear cin input on bad input
     }
 
     catch (Invalid_Input &e)
