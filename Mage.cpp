@@ -85,11 +85,16 @@ void Mage::StartMoving(Point2D dest)
     {
         // Remove mage when it leaves a building
         if (state == IN_HIDEOUT)
+        {
+
             current_hideout->RemoveOneMage();
             current_hideout = nullptr;
+        }
         if (state == AT_SPIRE)
+        {
             current_spire->RemoveOneMage();
             current_spire = nullptr;
+        }
 
         cout << display_code << id_num << ": On my way" << endl;
         state = MOVING;
@@ -350,7 +355,8 @@ bool Mage::UpdateLocation()
         cout << display_code << id_num << ": I'm there!" << endl;
         mana -= 1;
 
-        if (HuntedByDemon) {
+        if (HuntedByDemon)
+        {
             mana -= 1; // Loses double mana when hunted by demon
             follower->UpdateLocation(prevLocation);
         }
@@ -365,7 +371,8 @@ bool Mage::UpdateLocation()
         cout << display_code << id_num << ": step...!" << endl;
         mana -= 1;
 
-        if (HuntedByDemon) {
+        if (HuntedByDemon)
+        {
             mana -= 1;
             follower->UpdateLocation(prevLocation);
         }
@@ -415,9 +422,9 @@ bool Mage::IsFollowed()
     return HuntedByDemon;
 }
 
-void Mage::save(ofstream& file) const
+void Mage::save(ofstream &file) const
 {
-    GameObject::save(file); // Call parent functions 
+    GameObject::save(file); // Call parent functions
     file << speed << " ";
     file << is_at_spire << " ";
     file << is_in_hideout << " ";
@@ -428,17 +435,23 @@ void Mage::save(ofstream& file) const
     file << crystals_to_buy << " ";
     file << name << " ";
 
-    if (current_spire != nullptr) file << current_spire->GetId() << " ";
-    else file << -1 << " ";
+    if (current_spire != nullptr)
+        file << current_spire->GetId() << " ";
+    else
+        file << -1 << " ";
 
-    if (current_hideout != nullptr) file << current_hideout->GetId() << " ";
-    else file << -1 << " ";
+    if (current_hideout != nullptr)
+        file << current_hideout->GetId() << " ";
+    else
+        file << -1 << " ";
 
     file << destination.x << " " << destination.y << " ";
     file << delta.x << " " << delta.y << " ";
 
-    if (follower != nullptr) file << follower->GetId() << " ";
-    else file << -1 << " ";
+    if (follower != nullptr)
+        file << follower->GetId() << " ";
+    else
+        file << -1 << " ";
 
     file << HuntedByDemon << " ";
     file << prevLocation.x << " " << prevLocation.y << " ";
