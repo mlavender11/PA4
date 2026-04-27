@@ -185,7 +185,6 @@ void getInput(Model &model, View &view)
             exit(0);
             break;
         }
-
         case 'n':
         {
             char type;
@@ -201,6 +200,16 @@ void getInput(Model &model, View &view)
                 throw Invalid_Input("Coordinates (" + to_string(x) + ", " + to_string(y) + ") are out of bounds");
 
             model.NewCommand(type, id, Point2D(x, y));
+            break;
+        }
+
+        case 'S': {
+            string filename;
+            cout << "Enter filename: ";
+            cin >> filename;
+            
+            ofstream file(filename);
+            model.save(file);
             break;
         }
 
