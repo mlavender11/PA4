@@ -60,10 +60,10 @@ void GameObject::save(ofstream &file) const
 {
 
     // Write game object functions
-    file << display_code;
-    file << id_num;
-    file << location.x << " " << location.y;
-    file << state;
+    file << display_code << " ";
+    file << id_num << " ";
+    file << location.x << " " << location.y << " ";
+    file << state << " ";
 }
 
 void GameObject::restore(ifstream &file, Model &model) const
