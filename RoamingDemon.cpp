@@ -105,13 +105,13 @@ bool RoamingDemon::UpdateLocation(Point2D loc)
 void RoamingDemon::save(ofstream& file) const
 {
     GameObject::save(file); // Call parent functions 
-    file << attack;
-    file << health;
-    file << variant;
-    file << in_combat;
-    file << name;
-    if (current_mage != nullptr) file << current_mage->GetId();
-    else file << -1;
+    file << attack << " ";
+    file << health << " ";
+    file << variant << " ";
+    file << in_combat << " ";
+    file << name << " ";
+    if (current_mage != nullptr) file << current_mage->GetId() << " ";
+    else file << -1 << " ";
 
     file << endl;
 }
