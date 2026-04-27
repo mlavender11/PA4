@@ -155,7 +155,7 @@ void RoamingDemon::save(ofstream &file) const
     file << endl;
 }
 
-static RoamingDemon* restore(ifstream& file, Model& model)
+RoamingDemon* RoamingDemon::restore(ifstream& file, Model& model)
 {
     //GameObject data
     int id_num;
@@ -171,7 +171,6 @@ static RoamingDemon* restore(ifstream& file, Model& model)
 
     file >> attack >> health >> variant >> in_combat >> name >> current_mage;
 
-    list<Mage*> empty_list; // Empty list of mages to be set later
     RoamingDemon* demon = new RoamingDemon(name, attack, health, variant, id_num, Point2D(locX, locY), current_mage);
 
     RoamingDemonStates roamerState = (RoamingDemonStates)state;
