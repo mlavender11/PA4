@@ -49,6 +49,7 @@ public:
     void AddFollower(RoamingDemon *roamer);
     bool IsFollowed();
     void killRoamer();
+    Vector2D getDelta();
 
     void save(ofstream& file) const override;
     void restore(ifstream& file, Model& model) const override;

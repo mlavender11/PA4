@@ -427,7 +427,13 @@ bool Mage::IsFollowed()
 
 void Mage::killRoamer()
 {
+    HuntedByDemon = false;
     experience += 2;
+}
+
+Vector2D Mage::getDelta()
+{
+    return delta;
 }
 
 void Mage::save(ofstream &file) const

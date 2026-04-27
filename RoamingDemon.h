@@ -1,6 +1,7 @@
 #ifndef ROAMINGDEMON_H
 #define ROAMINGDEMON_H
 #include "GameObject.h"
+#include <list>
 using namespace std;
 
 class Mage;
@@ -22,9 +23,11 @@ protected:
     bool in_combat; //Returns true if the RoamingDemon is attacking a Mage - Default is false
     string name;
     Mage *current_mage; // Holds the current Mage it is following
+    double detectionRadius = 5.0;
+    list<Mage*> mage_ptrs;
     
 public:
-    RoamingDemon(string name, double attack, double health, bool variant, int id, Point2D in_loc);
+    RoamingDemon(string name, double attack, double health, bool variant, int id, Point2D in_loc, list<Mage*> mage_ptrs);
     void follow(Mage *m); // This follows Mage m - This should both change the Roaming Demon´s current_mage value and update the mage´s information as needed as well
     bool get_variant();
     double get_attack();
@@ -41,5 +44,14 @@ public:
     void save(ofstream& file) const override;
     void restore(ifstream& file, Model& model) const override;
 
+    bool findMages();
+
 };
+
+// Intersection formula for detecting mages
+bool pathIntersectsCircle(Point2D start, Vector2D delta, Point2D circleCenter, double radius);
+bool pointInCircle(Point2D point, Point2D circleCenter, double radius);
+
+
+
 #endif
