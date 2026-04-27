@@ -21,30 +21,13 @@ $(OUT_DIR)/pa4: $(OBJS)
 $(OUT_DIR)/%.o: %.cpp
 	$(CXX) $(CXXFLAGS) -c $< -o $@
 
-# Checkpoint targets
-$(OUT_DIR)/Checkpoint3: $(OUT_DIR)/Test3.o $(OUT_DIR)/Mage.o $(OUT_DIR)/ManaSpire.o \
-                        $(OUT_DIR)/DemonHideout.o $(OUT_DIR)/Building.o \
-                        $(OUT_DIR)/GameObject.o $(OUT_DIR)/Point2D.o $(OUT_DIR)/Vector2D.o
-	$(CXX) $(CXXFLAGS) -o $@ $^
-
-$(OUT_DIR)/Checkpoint1: $(OUT_DIR)/TestCheckpoint1.o $(OUT_DIR)/Point2D.o $(OUT_DIR)/Vector2D.o
-	$(CXX) $(CXXFLAGS) -o $@ $^
-
-$(OUT_DIR)/Checkpoint2: $(OUT_DIR)/TestCheckpoint2.o $(OUT_DIR)/ManaSpire.o \
-                        $(OUT_DIR)/DemonHideout.o $(OUT_DIR)/Building.o \
-                        $(OUT_DIR)/GameObject.o $(OUT_DIR)/Point2D.o $(OUT_DIR)/Vector2D.o
-	$(CXX) $(CXXFLAGS) -o $@ $^
-
-# Convenience targets (without path prefix)
+# Convenience target (without path prefix)
 pa4: $(OUT_DIR)/pa4
-Checkpoint1: $(OUT_DIR)/Checkpoint1
-Checkpoint2: $(OUT_DIR)/Checkpoint2
-Checkpoint3: $(OUT_DIR)/Checkpoint3
 
 clean:
 	rm -rf $(OUT_DIR)
 
-.PHONY: pa4 Checkpoint1 Checkpoint2 Checkpoint3 clean
+.PHONY: pa4 clean
 
 # CXX = g++
 # CXXFLAGS = -Wall
