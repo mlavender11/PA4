@@ -8,6 +8,8 @@
 #include <string>
 #include <sstream>
 
+class Model;
+
 enum MageStates
 {
     KNOCKED_OUT = 0,
@@ -68,6 +70,7 @@ public:
     int getInSpireId();
     int getInHideoutId();
     int getInFollowerId();
+    void restorePointers(Model& model);
 
 protected:
     bool UpdateLocation();

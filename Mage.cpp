@@ -1,4 +1,5 @@
 #include "Mage.h"
+#include "Model.h"
 using namespace std;
 
 Mage::Mage() : GameObject('M')
@@ -540,21 +541,33 @@ Mage *Mage::restore(stringstream &line)
     return mage;
 }
 
-void Mage::setState(MageStates state)
-{
-    this->state = state;
-}
+// Can I remove these?
+// int Mage::getInSpireId()
+// {
+//     return in_spire_id;
+// }
 
-int Mage::getInSpireId()
-{
-    return in_spire_id;
-}
+// int Mage::getInHideoutId()
+// {
+//     return in_hideout_id;
+// }
+// int Mage::getInFollowerId()
+// {
+//     return in_follower_id;
+// }
 
-int Mage::getInHideoutId()
+void Mage::restorePointers(Model& model)
 {
-    return in_hideout_id;
-}
-int Mage::getInFollowerId()
-{
-    return in_follower_id;
+    if (in_spire_id != -1)
+    {
+        current_spire = model.GetManaSpirePtr(in_spire_id);
+    }
+    if (in_hideout_id != -1)
+    {
+        current_hideout = model.GetDemonHideoutPtr(in_hideout_id);
+    }
+    if (in_follower_id != -1)
+    {
+        follower = model.GetRoamingDemonPtr(in_follower_id);
+    }
 }

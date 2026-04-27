@@ -1,6 +1,7 @@
 
 #include "RoamingDemon.h"
 #include "Mage.h"
+#include "Model.h"
 using namespace std;
 
 RoamingDemon::RoamingDemon(string name, double attack, double health, bool variant, int id, Point2D in_loc, list<Mage*> mage_ptrs)
@@ -193,14 +194,16 @@ void RoamingDemon::addMageList(list<Mage*> mage_ptrs)
     this->mage_ptrs = mage_ptrs;
 }
 
-int RoamingDemon::getInMageId()
-{
-    return in_mage_id;
-}
-
 void RoamingDemon::setState(RoamingDemonStates state)
 {
     this->state = state;
+}
+
+void RoamingDemon::restorePointers(Model& model){
+    if (in_mage_id != -1)
+    {
+        current_mage = model.GetMagePtr(in_mage_id);
+    }
 }
 
 // Find mages within detection radius
