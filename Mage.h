@@ -5,6 +5,7 @@
 #include "DemonHideout.h"
 #include "ManaSpire.h"
 #include "RoamingDemon.h"
+#include <string>
 #include <sstream>
 
 enum MageStates
@@ -27,6 +28,13 @@ public:
     Mage(char in_code);
     Mage(string in_name, int in_id, char in_code, unsigned int in_speed, Point2D in_loc);
     ~Mage();
+
+    //Constructor for read function
+    Mage(string in_name, int in_id, unsigned int in_speed, Point2D in_loc,
+        int in_spire_id, int in_hideout_id, int in_follower_id, MageStates state, double gold_pieces,
+        Point2D destination, Vector2D delta, Point2D prevLoc, bool is_at_spire, bool is_in_hideout, bool HuntedByDemon,
+        unsigned int mana, unsigned int experience, unsigned int battles_to_buy, unsigned int crystals_to_buy);
+    
 
     void StartMoving(Point2D dest);
     void StartMovingToHideout(DemonHideout *hideout);
@@ -52,10 +60,14 @@ public:
     void killRoamer();
     Vector2D getDelta();
 
+
+    //Restore helpers
     void save(ofstream& file) const override;
     static Mage* restore(stringstream& file);
     void setState(MageStates state);
-    
+    int getInSpireId();
+    int getInHideoutId();
+    int getInFollowerId();
 
 protected:
     bool UpdateLocation();
@@ -79,6 +91,11 @@ private:
     RoamingDemon *follower; // Roaming demon following this mage
     bool HuntedByDemon;     // True if there is a mage following it
     Point2D prevLocation; // For the roamer to lag behind
+
+    //Restore helpers - only valid during restore
+    int in_spire_id;
+    int in_hideout_id;
+    int in_follower_id;
 };
 
 double GetRandomAmountOfGP();
