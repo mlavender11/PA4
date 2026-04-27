@@ -108,7 +108,8 @@ void DemonHideout::ShowStatus() const
         cout << num_battles_remaining << " battles are remaining for this DemonHideout" << endl;
 }
 
-DemonHideout::~DemonHideout() {
+DemonHideout::~DemonHideout()
+{
     cout << "DemonHideout destructed" << endl;
 }
 
@@ -117,12 +118,11 @@ bool DemonHideout::isDead() const
     return state == DEFEATED;
 }
 
-
 //??
 
-void DemonHideout::save(ofstream& file) const
+void DemonHideout::save(ofstream &file) const
 {
-    Building::save(file); // Call parent functions 
+    Building::save(file); // Call parent functions
     file << num_battles_remaining << " ";
     file << max_number_of_battles << " ";
     file << mana_cost_per_battle << " ";
@@ -130,7 +130,34 @@ void DemonHideout::save(ofstream& file) const
     file << experience_per_battle << " ";
     file << endl;
 }
-void DemonHideout::restore(ifstream &file, Model &model) const
+DemonHideout *DemonHideout::restore(ifstream &file)
 {
-    // todo
+    // GameObject data
+    int id_num;
+    double locX, locY;
+    int state;
+    file >> id_num >> locX >> locY >> state;
+
+    // Building data
+    unsigned int mage_count;
+    file >> mage_count;
+
+    // Hideout data
+    unsigned int num_battles_remaining, max_number_of_battles, mana_cost_per_battle, experience_per_battle; // need to in num remainning
+    double gold_cost_per_battle;
+    file >> num_battles_remaining >> max_number_of_battles >> mana_cost_per_battle >> gold_cost_per_battle >> experience_per_battle;
+
+    DemonHideout* hideout = new DemonHideout(max_number_of_battles, mana_cost_per_battle, gold_cost_per_battle, experience_per_battle, id_num, Point2D(locX, locY));
+
+    hideout->setMages(mage_count);
+
+    DemonHideoutStates hideoutState = (DemonHideoutStates)state;
+    hideout->setState(hideoutState);
+
+    return hideout;
+}
+
+void DemonHideout::setState(DemonHideoutStates state)
+{
+    this->state = state;
 }
