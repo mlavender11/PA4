@@ -4,5 +4,6 @@
 !*.h
 !/Instructions/*.pdf
 !*.gitignore
+!readme
 
-output/
+output/ 
