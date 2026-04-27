@@ -52,7 +52,7 @@ public:
     Vector2D getDelta();
 
     void save(ofstream& file) const override;
-    void restore(ifstream& file, Model& model) const override;
+    void restore(ifstream& file, Model& model) override;
     
 
 protected:

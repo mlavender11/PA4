@@ -28,7 +28,6 @@ public:
     virtual bool isDead() const = 0;
 
     virtual void save(ofstream& file) const;
-    virtual void restore(ifstream& file, Model& model) const;
 
     void DrawSelf(char* ptr);
 };

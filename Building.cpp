@@ -45,8 +45,3 @@ void Building::save(ofstream &file) const
     GameObject::save(file);
     file << mage_count << " ";
 }
-
-void Building::restore(ifstream &file, Model &model) const
-{
-    // todo
-}
