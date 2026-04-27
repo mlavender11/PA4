@@ -163,7 +163,7 @@ static RoamingDemon* restore(ifstream& file, Model& model)
     int id_num;
     double locX, locY;
     int state;
-    cin >> id_num >> locX >> locY;
+    file >> id_num >> locX >> locY;
 
     //RoamingDemon data
     double attack, health;
@@ -171,10 +171,12 @@ static RoamingDemon* restore(ifstream& file, Model& model)
     string name;
     int current_mage;
 
-    cin >> attack >> health >> variant >> in_combat >> name >> current_mage;
+    file >> attack >> health >> variant >> in_combat >> name >> current_mage;
 
     list<Mage*> empty_list; // Empty list of mages to be set later
     RoamingDemon* demon = new RoamingDemon(name, attack, health, variant, id_num, Point2D(locX, locY), empty_list, current_mage);
+
+    
 }
 
 void RoamingDemon::addMageList(list<Mage*> mage_ptrs)
