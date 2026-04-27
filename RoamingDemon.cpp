@@ -16,7 +16,7 @@ RoamingDemon::RoamingDemon(string name, double attack, double health, bool varia
     this->mage_ptrs = mage_ptrs;
 }
 
-RoamingDemon::RoamingDemon(string name, double attack, double health, bool variant, int id, Point2D in_loc, list<Mage*> mage_ptrs, int in_mage_id)
+RoamingDemon::RoamingDemon(string name, double attack, double health, bool variant, int id, Point2D in_loc, int in_mage_id)
     : GameObject(in_loc, id, 'W')
 {
     this->name = name;
@@ -26,8 +26,6 @@ RoamingDemon::RoamingDemon(string name, double attack, double health, bool varia
     state = IN_ENVIRONMENT;
 
     current_mage = nullptr;
-    this->mage_ptrs = mage_ptrs;
-
     this->in_mage_id = in_mage_id;
 }
 
@@ -163,7 +161,7 @@ static RoamingDemon* restore(ifstream& file, Model& model)
     int id_num;
     double locX, locY;
     int state;
-    file >> id_num >> locX >> locY;
+    file >> id_num >> locX >> locY >> state;
 
     //RoamingDemon data
     double attack, health;
@@ -174,9 +172,13 @@ static RoamingDemon* restore(ifstream& file, Model& model)
     file >> attack >> health >> variant >> in_combat >> name >> current_mage;
 
     list<Mage*> empty_list; // Empty list of mages to be set later
-    RoamingDemon* demon = new RoamingDemon(name, attack, health, variant, id_num, Point2D(locX, locY), empty_list, current_mage);
+    RoamingDemon* demon = new RoamingDemon(name, attack, health, variant, id_num, Point2D(locX, locY), current_mage);
 
-    
+    RoamingDemonStates roamerState = (RoamingDemonStates)state;
+    demon->setState(roamerState);
+
+    return demon;
+
 }
 
 void RoamingDemon::addMageList(list<Mage*> mage_ptrs)
@@ -187,6 +189,11 @@ void RoamingDemon::addMageList(list<Mage*> mage_ptrs)
 int RoamingDemon::getInMageId()
 {
     return in_mage_id;
+}
+
+void RoamingDemon::setState(RoamingDemonStates state)
+{
+    this->state = state;
 }
 
 // Find mages within detection radius

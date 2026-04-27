@@ -106,8 +106,3 @@ void ManaSpire::save(ofstream& file) const
 
     file << endl;
 }
-
-void ManaSpire::restore(ifstream &file, Model &model) const
-{
-    // todo
-}

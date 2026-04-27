@@ -30,7 +30,7 @@ protected:
     
 public:
     RoamingDemon(string name, double attack, double health, bool variant, int id, Point2D in_loc, list<Mage*> mage_ptrs);
-    RoamingDemon(string name, double attack, double health, bool variant, int id, Point2D in_loc, list<Mage*> mage_ptrs, int in_mage_id);
+    RoamingDemon(string name, double attack, double health, bool variant, int id, Point2D in_loc, int in_mage_id);
     void follow(Mage *m); // This follows Mage m - This should both change the Roaming Demon´s current_mage value and update the mage´s information as needed as well
     bool get_variant();
     double get_attack();
@@ -46,6 +46,7 @@ public:
 
     void save(ofstream& file) const override;
     static RoamingDemon* restore(ifstream& file, Model& model);
+    void setState(RoamingDemonStates state);
 
     bool findMages();
 
