@@ -349,6 +349,7 @@ bool Mage::UpdateLocation()
         mana -= 1;
 
         if (HuntedByDemon) {
+            mana -= 1; // Loses double mana when hunted by demon
             follower->UpdateLocation(prevLocation);
         }
 
@@ -363,6 +364,7 @@ bool Mage::UpdateLocation()
         mana -= 1;
 
         if (HuntedByDemon) {
+            mana -= 1;
             follower->UpdateLocation(prevLocation);
         }
 

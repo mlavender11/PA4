@@ -10,6 +10,7 @@ RoamingDemon::RoamingDemon(string name, double attack, double health, bool varia
     this->attack = attack;
     this->health = health;
     this->variant = variant;
+    state = IN_ENVIRONMENT;
 }
 
 void RoamingDemon::follow(Mage *m)
@@ -79,7 +80,7 @@ void RoamingDemon::ShowStatus() const
     case IN_HUNT:
         cout << "Health: " << health << endl;
         cout << "Attack: " << attack << endl;
-        cout << "In Combat: " << in_combat << endl;
+        cout << "In combat with Mage " << current_mage->GetId() << endl;
         break;
     }
 }
@@ -97,5 +98,6 @@ bool RoamingDemon::isDead() const
 bool RoamingDemon::UpdateLocation(Point2D loc)
 {
     this->location = loc;
+    this->health -= 0.25; // Loses .25 health with every step
     return true; //?? What to do with this
 }
