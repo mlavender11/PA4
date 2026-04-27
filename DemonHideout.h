@@ -35,5 +35,6 @@ public:
 
     void save(ofstream& file) const override;
     static DemonHideout* restore(ifstream& file);
+    void setState(DemonHideoutStates state);
 };
 #endif
