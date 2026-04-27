@@ -29,11 +29,11 @@ Model::Model()
     object_ptrs.push_back(DemonHideout2);
     hideout_ptrs.push_back(DemonHideout2);
 
-    RoamingDemon *roamer1 = new RoamingDemon("Roamer 1", 5, 2, false, 1, Point2D(10, 12));
+    RoamingDemon *roamer1 = new RoamingDemon("Roamer 1", 5, 2, false, 1, Point2D(10, 12), mage_ptrs);
     object_ptrs.push_back(roamer1);
     roaming_ptrs.push_back(roamer1);
 
-    RoamingDemon *roamer2 = new RoamingDemon("Roamer 2", 5, 2, false, 2, Point2D(15, 5));
+    RoamingDemon *roamer2 = new RoamingDemon("Roamer 2", 5, 2, false, 2, Point2D(15, 5), mage_ptrs);
     object_ptrs.push_back(roamer2);
     roaming_ptrs.push_back(roamer2);
 
@@ -160,32 +160,32 @@ bool Model::Update()
         exit(0);
     }
 
-    // Loop to find if mage is within proximity of roaming demon
-    const double DETECTIONRADIUS = 3.0;
-    for (RoamingDemon *roamer : roaming_ptrs) // Loop over all roaming demons
-    {
-        if (roamer->get_in_combat())
-            continue; // If the roamer is already following a mage, ignore
+    // // Loop to find if mage is within proximity of roaming demon
+    // const double DETECTIONRADIUS = 5.0;
+    // for (RoamingDemon *roamer : roaming_ptrs) // Loop over all roaming demons
+    // {
+    //     if (roamer->get_in_combat())
+    //         continue; // If the roamer is already following a mage, ignore
 
-        Point2D roamerLoc = roamer->GetLocation();
-        Point2D mageLoc;
+    //     Point2D roamerLoc = roamer->GetLocation();
+    //     Point2D mageLoc;
 
-        for (Mage *mage : mage_ptrs)
-        {
-            if (mage->IsFollowed())
-                continue; // If the mage is already being followed, ignore
-            mageLoc = mage->GetLocation();
+    //     for (Mage *mage : mage_ptrs)
+    //     {
+    //         if (mage->IsFollowed())
+    //             continue; // If the mage is already being followed, ignore
+    //         mageLoc = mage->GetLocation();
 
-            double dx = mageLoc.x - roamerLoc.x;
-            double dy = mageLoc.y - roamerLoc.y;
-            double distance = sqrt(dx*dx + dy*dy);
-            if (distance <= DETECTIONRADIUS) // If the mage is within roamer's detection radius, then the roamer will start following it
-            {
-                roamer->follow(mage);
-                output = true;
-            }
-        }
-    }
+    //         double dx = mageLoc.x - roamerLoc.x;
+    //         double dy = mageLoc.y - roamerLoc.y;
+    //         double distance = sqrt(dx*dx + dy*dy);
+    //         if (distance <= DETECTIONRADIUS) // If the mage is within roamer's detection radius, then the roamer will start following it
+    //         {
+    //             roamer->follow(mage);
+    //             output = true;
+    //         }
+    //     }
+    // }
 
     return output;
 }
@@ -315,7 +315,7 @@ void Model::NewCommand(char type, int id, Point2D loc)
             cin >> attack >> health;
         }
 
-        RoamingDemon *new_roamer = new RoamingDemon(name, attack, health, false, id, loc);
+        RoamingDemon *new_roamer = new RoamingDemon(name, attack, health, false, id, loc, mage_ptrs);
 
         object_ptrs.push_back(new_roamer);
         active_ptrs.push_back(new_roamer);
