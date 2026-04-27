@@ -88,7 +88,8 @@ void ManaSpire::ShowStatus() const
     ;
 }
 
-ManaSpire::~ManaSpire(){
+ManaSpire::~ManaSpire()
+{
     cout << "ManaSpire destructed" << endl;
 }
 
@@ -97,12 +98,48 @@ bool ManaSpire::isDead() const
     return state == NO_CRYSTALS_AVAILABLE;
 }
 
-void ManaSpire::save(ofstream& file) const
+void ManaSpire::save(ofstream &file) const
 {
-    Building::save(file); // Call parent functions 
+    Building::save(file); // Call parent functions
     file << crystal_capacity << " ";
     file << num_crystals_remaining << " ";
     file << cost_per_crystal << " ";
 
     file << endl;
+}
+
+ManaSpire *ManaSpire::restore(ifstream &file, Model &model)
+{
+    // GameObject data
+    int id_num;
+    double locX, locY;
+    int state;
+    file >> id_num >> locX >> locY >> state;
+
+    // Building data
+    unsigned int mage_count;
+    file >> mage_count;
+
+    // Spire data
+    unsigned int crystal_capacity, num_crystals_remaining; // need to in num remainning
+    double cost_per_crystal;
+    file >> crystal_capacity >> num_crystals_remaining >> cost_per_crystal;
+
+    ManaSpire *spire = new ManaSpire(id_num, cost_per_crystal, crystal_capacity, Point2D(locX, locY));
+    spire->setMages(mage_count);
+
+    ManaSpireStates spireState = (ManaSpireStates)state;
+    spire->setState(spireState);
+    spire->setNumCrystalsRemaining(num_crystals_remaining);
+    return spire;
+}
+
+void ManaSpire::setState(ManaSpireStates state)
+{
+    this->state = state;
+}
+
+void ManaSpire::setNumCrystalsRemaining(unsigned int num_remaining)
+{
+    this->num_crystals_remaining = num_remaining;
 }
