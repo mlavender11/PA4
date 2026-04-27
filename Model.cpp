@@ -326,4 +326,6 @@ void Model::save(ofstream &file) const
     {
         obj->save(file); // each writes its display code and id num
     }
+
+    file.close();
 }
