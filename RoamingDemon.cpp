@@ -186,7 +186,6 @@ RoamingDemon* RoamingDemon::restore(stringstream& file)
     demon->setState(roamerState);
 
     return demon;
-
 }
 
 void RoamingDemon::addMageList(list<Mage*> mage_ptrs)

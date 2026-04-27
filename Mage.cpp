@@ -69,8 +69,44 @@ Mage::Mage(string in_name, int in_id, char in_code, unsigned int in_speed, Point
     follower = nullptr;
     HuntedByDemon = false;
 
-    cout << "Mage constructed." << endl;
+    std::cout << "Mage constructed." << endl;
 }
+
+Mage::Mage(string in_name, int in_id, unsigned int in_speed, Point2D in_loc,
+     int in_spire_id, int in_hideout_id, int in_follower_id, MageStates in_state, double gold_pieces,
+     Point2D destination, Vector2D delta, Point2D prevLoc, bool is_at_spire, bool is_in_hideout, bool HuntedByDemon,
+     unsigned int mana, unsigned int experience, unsigned int battles_to_buy, unsigned int crystals_to_buy)
+    : GameObject(in_loc, in_id, 'M')
+{
+    state = in_state;
+    speed = in_speed;
+    name = in_name;
+
+    this->is_at_spire = is_at_spire;
+    this->is_in_hideout = is_in_hideout;
+    this->mana = mana;
+    this->experience = experience;
+    this->gold_pieces = gold_pieces;
+    this->battles_to_buy = battles_to_buy;
+    this->crystals_to_buy = crystals_to_buy;
+
+    current_spire = nullptr;
+    current_hideout = nullptr;
+
+    follower = nullptr;
+    this->HuntedByDemon = HuntedByDemon;
+
+    this->in_spire_id = in_spire_id;
+    this->in_hideout_id = in_hideout_id;
+    this->in_follower_id = in_follower_id;
+
+    this->destination = destination;
+    this->delta = delta;
+    this->prevLocation = prevLoc;
+
+    std::cout << "Mage constructed." << endl;
+}
+
 
 void Mage::StartMoving(Point2D dest)
 {
@@ -475,15 +511,50 @@ void Mage::save(ofstream &file) const
 Mage *Mage::restore(stringstream &line)
 {
     // GameObject data
-    int id_num;
-    double locX, locY;
-    int state;
+    int id_num;        //
+    double locX, locY; //
+    int state;         //
     line >> id_num >> locX >> locY >> state;
 
     // need to finish
+    double speed, gold_pieces, destX, destY, dX, dY, prevLocX, prevLocY;
+    bool is_at_spire, is_in_hideout, HuntedByDemon;
+    unsigned int mana, experience, battles_to_buy, crystals_to_buy;
+    string name;
+    int spireId, hideoutId, followerId;
+
+    line >> speed >> is_at_spire >> is_in_hideout >> mana >> experience;
+    line >> gold_pieces >> battles_to_buy >> crystals_to_buy >> name;
+    line >> spireId >> hideoutId;
+    line >> destX >> destY;
+    line >> dX >> dY;
+    line >> followerId;
+    line >> HuntedByDemon;
+    line >> prevLocX >> prevLocY;
+
+    MageStates mageState = (MageStates(state));
+    Mage *mage = new Mage(name, id_num, speed, Point2D(locX, locY), spireId, hideoutId, followerId, mageState, gold_pieces, 
+    Point2D(destX, destY), Vector2D(dX, dY), Point2D(prevLocX, prevLocY), is_at_spire, is_in_hideout, HuntedByDemon, mana, 
+    experience, battles_to_buy, crystals_to_buy);
+    
+    return mage;
 }
 
 void Mage::setState(MageStates state)
 {
     this->state = state;
+}
+
+int Mage::getInSpireId()
+{
+    return in_spire_id;
+}
+
+int Mage::getInHideoutId()
+{
+    return in_hideout_id;
+}
+int Mage::getInFollowerId()
+{
+    return in_follower_id;
 }
