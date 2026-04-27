@@ -4,6 +4,8 @@
 #include <list>
 using namespace std;
 
+class Model;
+
 class Mage;
 
 enum RoamingDemonStates
@@ -46,14 +48,15 @@ public:
     bool isDead() const override;
     bool UpdateLocation(Point2D loc); // Follow Mage, called from Mage
 
+    // Restore functions
     void save(ofstream& file) const override;
     static RoamingDemon* restore(stringstream& file);
     void setState(RoamingDemonStates state);
+    void restorePointers(Model& model);
 
     bool findMages();
 
     void addMageList(list<Mage*> mage_ptrs);
-    int getInMageId();
 
 };
 
