@@ -86,8 +86,10 @@ void Mage::StartMoving(Point2D dest)
         // Remove mage when it leaves a building
         if (state == IN_HIDEOUT)
             current_hideout->RemoveOneMage();
+            current_hideout = nullptr;
         if (state == AT_SPIRE)
             current_spire->RemoveOneMage();
+            current_spire = nullptr;
 
         cout << display_code << id_num << ": On my way" << endl;
         state = MOVING;
