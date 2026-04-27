@@ -48,7 +48,15 @@ bool RoamingDemon::IsAlive()
 
 bool RoamingDemon::Update()
 {
-    if (health <= 0) state = DEAD;
+    if (health <= 0) {
+        if (state != DEAD)
+        {
+            current_mage->killRoamer();
+            current_mage = nullptr;
+            state = DEAD;
+        }
+    }
+
     switch (state)
     {
     case IN_ENVIRONMENT:

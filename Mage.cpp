@@ -425,6 +425,11 @@ bool Mage::IsFollowed()
     return HuntedByDemon;
 }
 
+void Mage::killRoamer()
+{
+    experience += 2;
+}
+
 void Mage::save(ofstream &file) const
 {
     GameObject::save(file); // Call parent functions

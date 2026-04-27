@@ -45,12 +45,14 @@ public:
 
     bool isDead() const override;
 
+    // Roaming Demon functions
     void AddFollower(RoamingDemon *roamer);
-
     bool IsFollowed();
+    void killRoamer();
 
     void save(ofstream& file) const override;
     void restore(ifstream& file, Model& model) const override;
+    
 
 protected:
     bool UpdateLocation();

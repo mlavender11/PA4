@@ -160,6 +160,8 @@ bool Model::Update()
         exit(0);
     }
 
+    // Loop to find if mage is within proximity of roaming demon
+    const double DETECTIONRADIUS = 3.0;
     for (RoamingDemon *roamer : roaming_ptrs) // Loop over all roaming demons
     {
         if (roamer->get_in_combat())
@@ -174,7 +176,10 @@ bool Model::Update()
                 continue; // If the mage is already being followed, ignore
             mageLoc = mage->GetLocation();
 
-            if (mageLoc == roamerLoc) // If the mage is at the roamer's location, then the roamer will start following it
+            double dx = mageLoc.x - roamerLoc.x;
+            double dy = mageLoc.y - roamerLoc.y;
+            double distance = sqrt(dx*dx + dy*dy);
+            if (distance <= DETECTIONRADIUS) // If the mage is within roamer's detection radius, then the roamer will start following it
             {
                 roamer->follow(mage);
                 output = true;
