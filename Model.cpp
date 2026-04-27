@@ -201,6 +201,7 @@ void Model::ShowStatus()
     }
 }
 
+// Create new object
 void Model::NewCommand(char type, int id, Point2D loc)
 {
     switch (type)
@@ -314,5 +315,15 @@ void Model::NewCommand(char type, int id, Point2D loc)
 
     default:
         break;
+    }
+}
+
+void Model::save(ofstream &file) const
+{
+    file << time << endl; // save game time
+    file << active_ptrs.size() << endl; // save number of active objects 
+    for (GameObject * obj : active_ptrs) // save each object
+    {
+        obj->save(file); // each writes its display code and id num
     }
 }
