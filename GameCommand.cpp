@@ -198,6 +198,8 @@ void getInput(Model &model, View &view)
                 throw Invalid_Input(string(1, type) + " is not a valid type");
             if (x < 0 || x > view.GetMaxSize() || y < 0 || y > view.GetMaxSize())
                 throw Invalid_Input("Coordinates (" + to_string(x) + ", " + to_string(y) + ") are out of bounds");
+            if (id < 0 || id > 9)
+                throw Invalid_Input("ID " + to_string(id) + " is out of bounds");
 
             model.NewCommand(type, id, Point2D(x, y));
             break;
