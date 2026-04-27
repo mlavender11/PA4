@@ -43,6 +43,6 @@ bool Building::ShouldBeVisible() const
 void Building::save(ofstream& file) const
 {
     GameObject::save(file);
-    file << mage_count << endl;
+    file << mage_count;
 }
 // void restore(ifstream& file, Model& model) const;

@@ -416,31 +416,30 @@ bool Mage::IsFollowed()
 void Mage::save(ofstream& file) const
 {
     GameObject::save(file); // Call parent functions 
-    file << speed << endl;
-    file << is_at_spire << endl;
-    file << is_in_hideout << endl;
-    file << mana << endl;
-    file << experience << endl;
-    file << gold_pieces << endl;
-    file << battles_to_buy << endl;
-    file << crystals_to_buy << endl;
-    file << name << endl;
+    file << speed;
+    file << is_at_spire;
+    file << is_in_hideout;
+    file << mana;
+    file << experience;
+    file << gold_pieces;
+    file << battles_to_buy;
+    file << crystals_to_buy;
+    file << name;
 
-    if (current_spire != nullptr) file << current_spire->GetId() << endl;
-    else file << -1 << endl;
+    if (current_spire != nullptr) file << current_spire->GetId();
+    else file << -1;
 
-    if (current_hideout != nullptr) file << current_hideout->GetId() << endl;
-    else file << -1 << endl;
+    if (current_hideout != nullptr) file << current_hideout->GetId();
+    else file << -1;
 
-    file << destination.x << " " << destination.y << endl;
-    file << delta.x << " " << delta.y << endl;
+    file << destination.x << " " << destination.y;
+    file << delta.x << " " << delta.y;
 
-    if (follower != nullptr) file << follower->GetId() << endl;
-    else file << -1 << endl;
+    if (follower != nullptr) file << follower->GetId();
+    else file << -1;
 
-    file << HuntedByDemon << endl;
-    file << prevLocation.x << " " << prevLocation.y << endl;
-
-
+    file << HuntedByDemon;
+    file << prevLocation.x << " " << prevLocation.y;
+    file << endl;
 }
 // void restore(ifstream& file, Model& model) const;
