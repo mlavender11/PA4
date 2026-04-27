@@ -130,4 +130,7 @@ void DemonHideout::save(ofstream& file) const
     file << experience_per_battle;
     file << endl;
 }
-// void restore(ifstream& file, Model& model) const;
+void DemonHideout::restore(ifstream &file, Model &model) const
+{
+    // todo
+}

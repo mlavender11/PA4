@@ -16,8 +16,8 @@ public:
     void ShowStatus() const override;
     bool ShouldBeVisible() const override;
 
-    void save(ofstream& file) const;
-    void restore(ifstream& file, Model& model) const;
+    void save(ofstream& file) const override;
+    void restore(ifstream& file, Model& model) const override;
 };
 
 #endif
