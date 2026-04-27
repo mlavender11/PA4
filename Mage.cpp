@@ -472,7 +472,18 @@ void Mage::save(ofstream &file) const
     file << endl;
 }
 
-void Mage::restore(ifstream &file, Model &model) const
+Mage *Mage::restore(ifstream &file)
 {
-    // todo
+    // GameObject data
+    int id_num;
+    double locX, locY;
+    int state;
+    file >> id_num >> locX >> locY >> state;
+
+    // need to finish
+}
+
+void Mage::setState(MageStates state)
+{
+    this->state = state;
 }
