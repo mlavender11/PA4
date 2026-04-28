@@ -5,5 +5,5 @@
 !/Instructions/*.pdf
 !*.gitignore
 !readme
-
+!test.txt
 output/ 
