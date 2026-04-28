@@ -77,6 +77,7 @@ bool RoamingDemon::Update()
         if (state != DEAD)
         {
             current_mage->killRoamer();
+            cout << "RoamingDemon " << name << " has been killed by Mage " << current_mage->GetId() << endl;
             current_mage = nullptr;
             state = DEAD;
             return true;
@@ -98,7 +99,6 @@ bool RoamingDemon::Update()
         return false;
         break;
     case IN_HUNT:
-        cout << "RoamingDemon " << this->id_num << " is following Mage " << current_mage->GetId() << endl;
         return false; // chkec this
         break;
     }
