@@ -208,8 +208,8 @@ void Mage::StartBattling(unsigned int num_battles)
     }
     else
     {
-
         state = BATTLING_IN_HIDEOUT;
+        current_hideout->DemonBattle(num_battles);
         cout << display_code << id_num << ": Started to battle at the DemonHideout " << current_hideout->GetId() << " with " << num_battles << " battles." << endl;
     }
 }
