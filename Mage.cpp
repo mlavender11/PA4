@@ -466,6 +466,7 @@ void Mage::killRoamer()
 {
     HuntedByDemon = false;
     experience += 2;
+    gold_pieces += 5;
 }
 
 Vector2D Mage::getDelta()
@@ -540,21 +541,6 @@ Mage *Mage::restore(stringstream &line)
     
     return mage;
 }
-
-// Can I remove these?
-// int Mage::getInSpireId()
-// {
-//     return in_spire_id;
-// }
-
-// int Mage::getInHideoutId()
-// {
-//     return in_hideout_id;
-// }
-// int Mage::getInFollowerId()
-// {
-//     return in_follower_id;
-// }
 
 void Mage::restorePointers(Model& model)
 {
