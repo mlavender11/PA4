@@ -137,16 +137,14 @@ bool RoamingDemon::isDead() const
     return state == DEAD;
 }
 
-bool RoamingDemon::UpdateLocation(Point2D loc)
+void RoamingDemon::UpdateLocation(Point2D loc)
 {
     if (state != DEAD)
     { // only move if not dead
         this->location = loc;
         this->health -= 0.25; // Loses .25 health with every step
-        return true;          //?? What to do with this
     }
-    else
-        return false;
+ 
 }
 
 void RoamingDemon::save(ofstream &file) const

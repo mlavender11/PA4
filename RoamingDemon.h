@@ -46,7 +46,7 @@ public:
     bool IsAlive();
 
     bool isDead() const override;
-    bool UpdateLocation(Point2D loc); // Follow Mage, called from Mage
+    void UpdateLocation(Point2D loc); // Follow Mage, called from Mage
 
     // Restore functions
     void save(ofstream& file) const override;

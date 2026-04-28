@@ -48,7 +48,7 @@ void View::Plot(GameObject *ptr)
 }
 
 void View::Draw() {
-    cout << "size: " << size << " scale: " << scale << " origin: " << origin << endl; //??
+    cout << "size: " << size << " scale: " << scale << " origin: " << origin << endl;
     for (int y = size - 1; y >= 0; y--) {
         if (y % 2 == 0)
             cout << setw(2) << (int)(origin.y + y * scale);

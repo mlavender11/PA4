@@ -118,7 +118,6 @@ bool DemonHideout::isDead() const
     return state == DEFEATED;
 }
 
-//??
 
 void DemonHideout::save(ofstream &file) const
 {
